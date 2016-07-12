@@ -33,7 +33,10 @@
 </head>
 
 <body>
-    <?php include("header.php"); ?>
+    <?php 
+    $id = 1;
+    include("header.php"); 
+    ?>
         <div id="page-wrapper">
 
             <div class="container-fluid">

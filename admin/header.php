@@ -117,21 +117,58 @@
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-                    <li class="active">
-                        <a href="index.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
-                    </li>
-                    <li>
-                        <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Manage Students </a>
-                    </li>
+                <?php
+              		if($id == 1){
+              			?>
+              			<li class="active">
+                        	<a href="index.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard </a>
+                    	</li>	
+              			<?php
+              		}else{
+              			?>
+              			<li>
+                        	<a href="index.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                    	</li>
+              			<?php
+              		}
+					
+              		if($id == 2){
+              			?>
+              			<li class="active">
+                        	<a href="manage_students.php"><i class="fa fa-fw fa-group"></i> Manage Students </a>
+                    	</li>	
+              			<?php
+              		}else{
+              			?>
+              			<li>
+                        	<a href="manage_students.php"><i class="fa fa-fw fa-group"></i> Manage Students </a>
+                    	</li>
+              			<?php
+              		}
+					?>
+                    
                     <li>
                         <a href="tables.html"><i class="fa fa-fw fa-table"></i> Manage Courses </a>
                     </li>
                     <li>
                         <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Manage Questions </a>
                     </li>
-                    <li>
-                        <a href="manage_gallery.php"><i class="fa fa-fw fa-desktop"></i> Manage Gallery </a>
-                    </li>
+              		<?php
+              		if($id == 3){
+              			?>
+              			<li class="active">
+                        	<a href="manage_gallery.php"><i class="fa fa-fw fa-photo"></i> Manage Gallery </a>
+                    	</li>	
+              			<?php
+              		}else{
+              			?>
+              			<li>
+                        	<a href="manage_gallery.php"><i class="fa fa-fw fa-photo"></i> Manage Gallery </a>
+                    	</li>
+              			<?php
+              		}
+					?>
+                    
                     <li>
                         <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
                     </li>
