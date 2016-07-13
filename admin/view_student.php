@@ -33,9 +33,17 @@
 </head>
 <body>
 	<?php 
+    require 'access/dbaccess.php';
+    if(isset($_GET['stdnt'])){
+        $username = $_GET['stdnt'];
+    }else{
+        $username = NULL;
+    }
 	$id = 2;
 	include("header.php"); 
 	
+    $data = $db->query("SELECT * FROM manage_students WHERE username='$username'");
+    $row = $data->fetch(PDO::FETCH_ASSOC);
 	?>
 	
 	        <div id="page-wrapper">
@@ -46,7 +54,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header"><i class="fa fa-user"></i>
-                            Add Student
+                            Student Details
                         </h1>
                         <ol class="breadcrumb">
                             <li>
@@ -56,19 +64,14 @@
                                 <i class="fa fa-group"></i> <a href="manage_students.php">Manage Students</a>
                             </li>
                             <li class="active">
-                                <i class="fa fa-user"></i> Add Student
+                                <i class="fa fa-user"></i> Student Details
                             </li>
                         </ol>
                     </div>
                 </div>
                 <!-- /.row -->
 
-        <form action="add_stud.php" method="post" >
-        <div >
-            <strong>NOTE:</strong> Fields marked with <span style="color:red">*</span> are mandatory.
-        </div><br/>
-
-        <?php
+            <?php
             if((isset($_GET['status'])) && ($_GET['status'] == "success")){
                 ?>
                 <div class="row">
@@ -94,151 +97,128 @@
             }
             
             ?>
-
+    <h3> <i class="fa fa-user"></i> Personal Details</h3>
+    <hr>
         <div class="row">
-        <div class="col-sm-3">
-            <h4>First Name:<span style="color:red">*</span></h4>
+        <div class="col-sm-2">
+            <h4>First Name:</h4>
         </div>
         <div class="col-md-3">
-            <input type="text" name="fname" class="form-control" required />
+            <h4><?= $row['fname'] ?></h4>
         </div>
         <div class="col-sm-2" >
-            <h4>Gender:<span style="color:red">*</span></h4>
+            <h4>Gender:</h4>
         </div>
         <div class="col-md-3">
-            <input type="radio" name="gender" value="Male" required /> Male
-            <input type="radio" name="gender" value="Female" required /> Female
-        </div>
-        </div>
-
-        <div class="row">
-        <div class="col-md-3">
-            <h4>Middle Name:<span style="color:red">*</span></h4>
-        </div>
-        <div class="col-md-3">
-            <input type="text" name="middle" class="form-control" required />
-        </div>
-        <div class="col-sm-2" >
-            <h4>Date of Birth:<span style="color:red">*</span></h4>
-        </div>
-        <div class="col-md-3">
-            <input type="date" name="dob" class="form-control" required />
+            <h4><?= $row['gender'] ?></h4>
         </div>
         </div>
 
         <div class="row">
-        <div class="col-md-3">
-            <h4>Last Name:<span style="color:red">*</span></h4>
+        <div class="col-md-2">
+            <h4>Middle Name:</h4>
         </div>
         <div class="col-md-3">
-            <input type="text" name="lname" class="form-control" required />
+            <h4><?= $row['middle'] ?></h4>
         </div>
         <div class="col-sm-2" >
-            <h4>Username:<span style="color:red">*</span></h4>
+            <h4>Date of Birth:</h4>
+        </div>
+            <h4><?= $row['dob'] ?></h4>
+        </div>
+
+        <div class="row">
+        <div class="col-md-2">
+            <h4>Last Name:</h4>
         </div>
         <div class="col-md-3">
-            <input type="text" name="username" class="form-control" required />
+            <h4><?= $row['lname'] ?></h4>
+        </div>
+        <div class="col-sm-2" >
+            <h4>Username:</h4>
+        </div>
+        <div class="col-md-3">
+            <h4><?= $row['username'] ?></h4>
         </div>
         </div>
 
         <div class="row">
-        <div class="col-md-3">
-            <h4>Address:<span style="color:red">*</span></h4>
+        <div class="col-md-2">
+            <h4>Address:</h4>
         </div>
         <div class="col-md-3">
-            <textarea name="address" class="form-control" required></textarea>
+            <h4><?= $row['address'] ?></h4>
         </div>
         <div class="col-sm-2" >
-            <h4>Password:<span style="color:red">*</span></h4>
+            <h4>Pin:</h4>
         </div>
         <div class="col-md-3">
-            <input type="password" name="password" class="form-control" required />
+            <h4><?= $row['pin'] ?></h4>
         </div>
         </div><br/>
 
         <div class="row">
-        <div class="col-md-3">
-            <h4>Pin:</h4>
+        <div class="col-md-2">
+            <h4>Country:</h4>
         </div>
         <div class="col-md-3">
-            <input type="text" name="pin" class="form-control" />
+            <h4><?= $row['country'] ?></h4>
+        </div>
+        <div class="col-md-2">
+            <h4>Contact No (M):</h4>
+        </div>
+        <div class="col-md-3">
+            <h4><?= $row['mobile'] ?></h4>
         </div>
         </div>
 
         <div class="row">
-        <div class="col-md-3">
-            <h4>Country:<span style="color:red">*</span></h4>
-        </div>
-        <div class="col-md-3">
-            <input type="text" name="country" class="form-control" value="India" readonly />
-        </div>
-        </div>
-
-        <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2">
             <h4>E-mail ID:</h4>
         </div>
         <div class="col-md-3">
-            <input type="text" name="email" class="form-control" />
+            <h4><?= $row['email'] ?></h4>
         </div>
-        </div>
-
-        <div class="row">
-        <div class="col-md-3">
-            <h4>Contact No (M):<span style="color:red">*</span></h4>
-        </div>
-        <div class="col-md-3">
-            <input type="text" name="contact_m" class="form-control" required />
-        </div>
-        </div>
-
-        <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2">
             <h4>Contact No (R):</h4>
         </div>
         <div class="col-md-3">
-            <input type="text" name="contact_r" class="form-control" />
+            <h4><?= $row['landline'] ?></h4>
         </div>
         </div>
+        <div class="row">
+            <div class="col-lg-2">
+                <h4>NewsLetter:</h4>
+            </div>
+            <div class="col-lg-4">
+            <?php 
+            if($row['newsletter'] == 1){
+                echo "<h4 style='color:green'>Subscribed</h4>";
+            }else{
+                echo "<h4 style='color:red'>Not Subscribed</h4>";
+            }
+            ?>
+            </div>
+        </div>
+
+        <hr>
+        <h3> <i class="fa fa-table"></i> Courses Enroled</h3>
+        <hr>
 
         <br/>
         <div class="row">
-        <div class="col-lg-6" align="center">
-        <input type="submit" class="btn btn-primary" />
-        <input type="button" class="btn btn-danger" value="Reset" onclick="disableAllFields()" />
+        <div class="col-lg-12" align="center">
+        <button class="btn btn-primary" onclick="window.location='update_student.php?stdnt=<?= $row['username'] ?>'"><i class="fa fa-edit"></i> Edit</button>
+        <button class="btn btn-warning" onclick="window.print()"><i class="fa fa-print"></i> Print</button>
         </div>
         </div>
-    </form>
-    <hr>
 
-            </div>
+
+                </div>
             <!-- /.container-fluid -->
         </div>
         <!-- /#page-wrapper -->
 
     <?php include("footer.php"); ?>
 </body>
-<script type="text/javascript">
-function disableAllFields(){
-    window.location = 'add_student.php';
-/*
-    var f = document.getElementsByTagName('input');
-    for(var i=0;i<f.length;i++){
-        if(f[i].getAttribute('type')=='text'){
-            f[i].setAttribute('value',"")
-        }
-        if(f[i].getAttribute('type')=='radio'){
-            f[i].setAttribute('checked',false)
-        }
-    }
-    var f = document.getElementsByTagName('textarea');
-    for(var i=0;i<f.length;i++){
-        if(f[i].getAttribute('type')=='text'){
-            f[i].setAttribute('value',"")
-        }
-    }
-    */
-}
-
-</script>
 </html>

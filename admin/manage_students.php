@@ -18,24 +18,36 @@
     <!-- Morris Charts CSS -->
     <link href="css/plugins/morris.css" rel="stylesheet">
 
+    <!-- Pop-Up CSS -->
+    <link href="css/welcome.css" rel="stylesheet">
+
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet" >
     
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
- 
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+<script type="text/javascript">
+   $(document).ready(function(){
+    $('#table').DataTable();
+   
+});
+     
+</script>
 </head>
 <body>
 	<?php 
+  require 'access/dbaccess.php';
 	$id = 2;
 	include("header.php"); 
-	
 	?>
 	
 	        <div id="page-wrapper">
@@ -64,606 +76,52 @@
         <div align="center">
             <button class="btn btn-primary" onClick="window.location='add_student.php'">Add Student</button>
             <button class="btn btn-primary" onClick="window.print()">Print Data</button>
+            
         </div>
     </div>
 
-                <div class="table-responsive">
-                <table class="table table-striped" id="myTable">
+    <div class="table-responsive">
+        <table class="table table-striped" id="table">
   <thead>
     <tr>
       <th>#</th>
       <th>First Name</th>
-      
       <th>Last Name</th>
-      <th>Username</th>
-      
-      
-      
-      
+      <th>Username</th>    
+      <th>Gender</th>
+      <th>DOB</th>
       <th>Email</th>
       <th>Mobile No.</th>
       <th>Landline</th>
     </tr>
   </thead>
   <tbody>
-  
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
+  <?php
+    $row = $db->query("SELECT * FROM manage_students");
+    $cnt = 0;
+    while($row1 = $row->fetch(PDO::FETCH_ASSOC)){
+      $cnt++;
+      ?>
+      <tr onclick="document.location='view_student.php?stdnt=<?= $row1['username'] ?>'" style="cursor:hand">
     
-      <th scope="row">1</th>
-      <td>Sarjak</td>
+      <th scope="row"><?= $cnt ?></th>
+      <td><?= $row1['fname'] ?></td>
       
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
+      <td><?= $row1['lname'] ?></td>
+      <td><?= $row1['username'] ?></td>
+      <td><?= $row1['gender'] ?></td>
+      <td><?= $row1['dob'] ?></td>
+      <td><?= $row1['email'] ?></td>
+      <td><?= $row1['mobile'] ?></td>
+      <td><?= $row1['landline'] ?></td>
 
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    <tr onclick="document.location='index.php?std=<?php echo "studntid" ?>'" style="cursor:hand">
-    
-      <th scope="row">1</th>
-      <td>Sarjak</td>
-      
-      <td>Gandhi</td>
-      <td>sarjakqww21</td>
-      
-      
-      
-      <td>sarjak_29@yahoo.com</td>
-      <td>8690999608</td>
-      <td>079-22740611</td>
-
-    </tr>
-    
+      </tr>  
+      <?php
+    }
+  ?>
   </tbody>
 </table>
 </div>
-
-    
-
 			<?php
 			if((isset($_GET['status'])) && ($_GET['status'] == "success")){
 				?>

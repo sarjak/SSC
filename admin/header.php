@@ -170,10 +170,10 @@
 					?>
                     
                     <li>
-                        <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
+                        <a href="bootstrap-grid.html"><i class="fa fa-fw fa-trophy"></i> Manage Achievements &amp; Awards</a>
                     </li>
                     <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Manage HomePage <i class="fa fa-fw fa-caret-down"></i></a>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-home"></i> Manage HomePage <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo" class="collapse">
                             <li>
                                 <a href="#"> Manage SlideShow </a>
@@ -183,12 +183,22 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>
-                    </li>
-                    <li>
-                        <a href="index-rtl.html"><i class="fa fa-fw fa-dashboard"></i> RTL Dashboard</a>
-                    </li>
+                    <?php
+                    if($id == 8){
+                        ?>
+                        <li class="active">
+                            <a href="newsletter.php"><i class="fa fa-fw fa-envelope"></i> Send NewsLetters/Mail </a>
+                        </li>   
+                        <?php
+                    }else{
+                        ?>
+                        <li>
+                            <a href="newsletter.php"><i class="fa fa-fw fa-envelope"></i> Send NewsLetters/Mail </a>
+                        </li>
+                        <?php
+                    }
+                    ?>
+              
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

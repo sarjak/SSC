@@ -33,8 +33,16 @@
 </head>
 <body>
 	<?php 
+    require 'access/dbaccess.php';
+    if(isset($_GET['stdnt'])){
+        $username = $_GET['stdnt'];
+    }else{
+        $username = NULL;
+    }
 	$id = 2;
 	include("header.php"); 
+    $data = $db->query("SELECT * FROM manage_students WHERE username='$username'");
+    $row = $data->fetch(PDO::FETCH_ASSOC);
 	
 	?>
 	
@@ -45,8 +53,8 @@
                 <!-- Page Heading -->
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header"><i class="fa fa-user"></i>
-                            Add Student
+                        <h1 class="page-header"><i class="fa fa-edit"></i>
+                            Update Student Details
                         </h1>
                         <ol class="breadcrumb">
                             <li>
@@ -56,7 +64,7 @@
                                 <i class="fa fa-group"></i> <a href="manage_students.php">Manage Students</a>
                             </li>
                             <li class="active">
-                                <i class="fa fa-user"></i> Add Student
+                                <i class="fa fa-edit"></i> Update Student Details
                             </li>
                         </ol>
                     </div>
@@ -64,6 +72,7 @@
                 <!-- /.row -->
 
         <form action="add_stud.php" method="post" >
+        <input type="hidden" name="student" value="update" />
         <div >
             <strong>NOTE:</strong> Fields marked with <span style="color:red">*</span> are mandatory.
         </div><br/>
@@ -75,7 +84,7 @@
                     <div class="col-lg-12">
                         <div class="alert alert-info alert-dismissable">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            Great! The Student was added Successfully.
+                            Great! The Details were updated Successfully.
                         </div>
                     </div>
                 </div>
@@ -100,14 +109,21 @@
             <h4>First Name:<span style="color:red">*</span></h4>
         </div>
         <div class="col-md-3">
-            <input type="text" name="fname" class="form-control" required />
+            <input type="text" name="fname" class="form-control"  value="<?= $row['fname'] ?>" required />
         </div>
         <div class="col-sm-2" >
             <h4>Gender:<span style="color:red">*</span></h4>
         </div>
         <div class="col-md-3">
-            <input type="radio" name="gender" value="Male" required /> Male
-            <input type="radio" name="gender" value="Female" required /> Female
+        <?php
+            if($row['gender'] == "Male"){
+                echo "<input type='radio' name='gender' value='Male' checked='true' required /> Male &nbsp;&nbsp;";
+                echo "<input type='radio' name='gender' value='Female' required /> Female";
+            }else{
+                echo "<input type='radio' name='gender' value='Male' required /> Male";
+                echo "<input type='radio' name='gender' value='Female' checked='true' required /> Female";
+            }
+        ?>
         </div>
         </div>
 
@@ -116,13 +132,13 @@
             <h4>Middle Name:<span style="color:red">*</span></h4>
         </div>
         <div class="col-md-3">
-            <input type="text" name="middle" class="form-control" required />
+            <input type="text" name="middle" class="form-control" value="<?= $row['middle'] ?>" required />
         </div>
         <div class="col-sm-2" >
             <h4>Date of Birth:<span style="color:red">*</span></h4>
         </div>
         <div class="col-md-3">
-            <input type="date" name="dob" class="form-control" required />
+            <input type="date" name="dob" class="form-control" value="<?= $row['dob'] ?>" required />
         </div>
         </div>
 
@@ -131,13 +147,13 @@
             <h4>Last Name:<span style="color:red">*</span></h4>
         </div>
         <div class="col-md-3">
-            <input type="text" name="lname" class="form-control" required />
+            <input type="text" name="lname" class="form-control" value="<?= $row['lname'] ?>" required />
         </div>
         <div class="col-sm-2" >
             <h4>Username:<span style="color:red">*</span></h4>
         </div>
         <div class="col-md-3">
-            <input type="text" name="username" class="form-control" required />
+            <input type="text" name="username" class="form-control" value="<?= $row['username'] ?>" required readonly />
         </div>
         </div>
 
@@ -146,13 +162,13 @@
             <h4>Address:<span style="color:red">*</span></h4>
         </div>
         <div class="col-md-3">
-            <textarea name="address" class="form-control" required></textarea>
+            <textarea name="address" class="form-control" required><?= $row['address'] ?></textarea>
         </div>
         <div class="col-sm-2" >
             <h4>Password:<span style="color:red">*</span></h4>
         </div>
         <div class="col-md-3">
-            <input type="password" name="password" class="form-control" required />
+            <input type="password" name="password" class="form-control" value="<?= $row['password'] ?>" required />
         </div>
         </div><br/>
 
@@ -161,7 +177,20 @@
             <h4>Pin:</h4>
         </div>
         <div class="col-md-3">
-            <input type="text" name="pin" class="form-control" />
+            <input type="text" name="pin" class="form-control" value="<?= $row['pin'] ?>" />
+        </div>
+        <div class="col-md-2">
+            <h4>NewsLetter:</h4> 
+        </div>
+        <div style="padding-top:10px" class="col-md-3">
+        <?php
+            if($row['newsletter']){
+                echo "<input type='checkbox' name='newsletter' checked='true' value='1' />";
+            }else{
+                echo "<input type='checkbox' name='newsletter' value='1' />";
+            }
+        ?>
+            
         </div>
         </div>
 
@@ -179,7 +208,7 @@
             <h4>E-mail ID:</h4>
         </div>
         <div class="col-md-3">
-            <input type="text" name="email" class="form-control" />
+            <input type="text" name="email" class="form-control" value="<?= $row['email'] ?>" />
         </div>
         </div>
 
@@ -188,7 +217,7 @@
             <h4>Contact No (M):<span style="color:red">*</span></h4>
         </div>
         <div class="col-md-3">
-            <input type="text" name="contact_m" class="form-control" required />
+            <input type="text" name="contact_m" class="form-control" value="<?= $row['mobile'] ?>" required />
         </div>
         </div>
 
@@ -197,15 +226,15 @@
             <h4>Contact No (R):</h4>
         </div>
         <div class="col-md-3">
-            <input type="text" name="contact_r" class="form-control" />
+            <input type="text" name="contact_r" class="form-control" value="<?= $row['landline'] ?>" />
         </div>
         </div>
 
         <br/>
         <div class="row">
-        <div class="col-lg-6" align="center">
-        <input type="submit" class="btn btn-primary" />
-        <input type="button" class="btn btn-danger" value="Reset" onclick="disableAllFields()" />
+        <div class="col-lg-12" align="center">
+        <button class="btn btn-primary" onclick="window.location='update_student.php?stdnt=<?= $row['username'] ?>'"><i class="fa fa-save"></i> Save </button>
+        
         </div>
         </div>
     </form>
