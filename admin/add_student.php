@@ -205,7 +205,7 @@
         <div class="row">
         <div class="col-lg-6" align="center">
         <input type="submit" class="btn btn-primary" />
-        <input type="button" class="btn btn-danger" value="Reset" onclick="disableAllFields()" />
+        <input type="reset" class="btn btn-danger" value="Reset" />
         </div>
         </div>
     </form>

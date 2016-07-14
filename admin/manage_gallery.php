@@ -52,7 +52,7 @@
 <body>
 	<?php 
 	require 'access/dbaccess.php';
-	$id = 3;
+	$id = 6;
 	include("header.php"); 
 	
 	?>

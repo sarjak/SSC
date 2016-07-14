@@ -114,7 +114,7 @@ if(($row) && ($student == "update")){
 		<?php
 	}
 
-}else if(($row) && ($student == "add")){
+}else if((!$row) && ($student == "add")){
 	
 	$retval = $db->query("INSERT INTO manage_students (username, password, fname, middle, lname, address, pin, country, newsletter, email, mobile, landline, gender, dob) VALUES ('$username', '$pass', '$fname', '$middle', '$lname', '$address', '$pin', '$country', 0, '$email', '$contact_m', '$contact_r', '$gender', '$dob')");	
 

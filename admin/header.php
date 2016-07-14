@@ -147,14 +147,28 @@
               		}
 					?>
                     
-                    <li>
-                        <a href="tables.html"><i class="fa fa-fw fa-table"></i> Manage Courses </a>
-                    </li>
+                    <?php
+                                        
+                    if($id == 3){
+                        ?>
+                        <li class="active">
+                            <a href="manage_courses.php"><i class="fa fa-fw fa-table"></i> Manage Courses </a>
+                        </li>
+                        <?php
+                    }else{
+                        ?>
+                        <li>
+                            <a href="manage_courses.php"><i class="fa fa-fw fa-table"></i> Manage Courses </a>
+                        </li>
+                        <?php
+                    }
+                    ?>
+
                     <li>
                         <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Manage Questions </a>
                     </li>
               		<?php
-              		if($id == 3){
+              		if($id == 6){
               			?>
               			<li class="active">
                         	<a href="manage_gallery.php"><i class="fa fa-fw fa-photo"></i> Manage Gallery </a>
