@@ -110,6 +110,7 @@
         <div align="center">
             <button class="btn btn-primary" onClick="window.location='add_course.php'"><i class="fa fa-pencil"></i> Add Course</button>
             <button class="btn btn-primary" onClick="window.location='manage_category.php'"><i class="fa fa-tags"></i> Manage Categories</button>
+            <button class="btn btn-primary" onClick="window.location='manage_course_material.php'"><i class="fa fa-book"></i> Manage Course Material</button>
             <button class="btn btn-warning" onClick="window.print()"><i class="fa fa-print"></i> Print Data</button>
         </div>
     </div>

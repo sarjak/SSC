@@ -128,7 +128,7 @@
             </div>
             </td>
             <td>
-                <button class="btn btn-info" onClick="window.location='add_category.php?id=<?= $row1['category_id'] ?>'"><i class="fa fa-edit"></i> Update Course</button>
+                <button class="btn btn-info" onClick="window.location='add_category.php?id=<?= $row1['category_id'] ?>'"><i class="fa fa-edit"></i> Update Category</button>
             </td>
             </tr>      
             <?php

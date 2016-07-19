@@ -112,8 +112,8 @@
                         <h4>Category:<span style="color:red">*</span></h4>        
                     </td>
                     <td>
-                        <select class="form-control" name="category" required>
-                            <option value="">-- Select --</option>
+                        <select class="form-control" name="category" multiple="multiple" required>
+
                         <?php
                             while ($row1 = $row->fetch(PDO::FETCH_ASSOC)) {
                                 ?>

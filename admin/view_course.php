@@ -101,8 +101,17 @@
             }
             ?>
 
-            
-                <div class="row">
+                <div class="row jumbotron">
+                <table style="margin-top:-40px">
+                <tr>
+                    <td>
+                        <h3 >Course:&nbsp;&nbsp;&nbsp;&nbsp;</h3>
+                    </td>
+                    <td >
+                        <h3><b><?= $row1['course_name'] ?></b></h3>
+                    </td>
+                </tr>
+            </table><br/>
                     <div class="col-xs-6 col-md-3">
                         <a href="#" class="thumbnail">
                             <img src="<?= $row1['image'] ?>" alt="...">
@@ -172,7 +181,9 @@
                 </div>
             
                 <h4>Course Description: </h4>
+                <div class="jumbotron">
                 <?= $row1['course_desc'] ?>
+                </div>
 
     <div class="row">
         <div class="col-lg-12" align="center">
@@ -180,7 +191,63 @@
             <button class="btn btn-warning" onclick="window.print()"><i class="fa fa-print"></i> Print</button>
         </div>
     </div>
+<?php
+    $link = $db->query("SELECT * FROM manage_course_material WHERE course_id = '$row1[course_id]' AND notes_category = 'link'");
+?>
+
+    <h3 ><b>Study Material</b></h3><hr>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Refernce Links
+            </div>
+            <div style="padding:30px">
+                <ul>
+                <?php 
+                if($links = $link->fetch(PDO::FETCH_ASSOC)){
+                    echo "<li><b><a href=$links[notes_path] target=_blank>$links[notes_path]</a></b><ul><li>$links[notes_description]</li></ul></li>";
+                    while ($links = $link->fetch(PDO::FETCH_ASSOC)) {
+                        echo "<li><b><a href=$links[notes_path] target=_blank>$links[notes_path]</a></b><ul><li>$links[notes_description]</li></ul></li>";
+                    }
+                }else{
+                    echo "<h5>Sorry, You have not uploaded any reference links for this course.</h5>";
+                }
+                ?>
+                
+                </ul>
+            </div>
+            <div align="center" class="panel-footer">
+                <button class="btn btn-primary" onclick="window.location='update_course.php?courseid=<?= $row1['course_id'] ?>'"><i class="fa fa-edit"></i> Edit</button>
+            </div>
+        </div><hr>
+<?php
+    $link = $db->query("SELECT * FROM manage_course_material WHERE course_id = '$row1[course_id]' and notes_category = 'notes'");
+?>
+
+                <div class="panel panel-primary">
+            <div class="panel-heading">
+                Refernce Notes
+            </div>
+            <div style="padding:30px">
+                <ul>
+                <?php 
+                if($links = $link->fetch(PDO::FETCH_ASSOC)){
+                    echo "<li><b><a href=$links[notes_path] target=_blank>$links[notes_title]</a></b><ul><li>$links[notes_description]</li></ul></li>";
+                    while ($links = $link->fetch(PDO::FETCH_ASSOC)) {
+                        echo "<li><b><a href=$links[notes_path] target=_blank>$links[notes_title]</a></b><ul><li>$links[notes_description]</li></ul></li>";
+                    }
+                }else{
+                    echo "<h5>Sorry, You have not uploaded any reference notes for this course.</h5>";
+                }
+                ?>
+                
+                </ul>
+            </div>
+            <div align="center" class="panel-footer">
+                <button class="btn btn-primary" onclick="window.location='update_course.php?courseid=<?= $row1['course_id'] ?>'"><i class="fa fa-edit"></i> Edit</button>
+            </div>
+        </div>
     <hr>
+
 
             </div>
             <!-- /.container-fluid -->
