@@ -182,6 +182,22 @@
               			<?php
               		}
 					?>
+
+                    <?php
+                    if($id == 7){
+                        ?>
+                        <li class="active">
+                            <a href="manage_institute.php"><i class="fa fa-fw fa-bank"></i> Manage Institutions </a>
+                        </li>   
+                        <?php
+                    }else{
+                        ?>
+                        <li>
+                            <a href="manage_institute.php"><i class="fa fa-fw fa-bank"></i> Manage Institutions </a>
+                        </li>
+                        <?php
+                    }
+                    ?>
                     
                     <li>
                         <a href="bootstrap-grid.html"><i class="fa fa-fw fa-trophy"></i> Manage Achievements &amp; Awards</a>

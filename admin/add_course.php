@@ -20,6 +20,8 @@
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     
     <script src="js/jquery.js"></script>
+
+    <script src="ckeditor/ckeditor/ckeditor.js"></script>
  
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -112,8 +114,8 @@
                         <h4>Category:<span style="color:red">*</span></h4>        
                     </td>
                     <td>
-                        <select class="form-control" name="category" multiple="multiple" required>
-
+                        <select class="form-control" name="category" required>
+                            <option value="">-- Select --</option>
                         <?php
                             while ($row1 = $row->fetch(PDO::FETCH_ASSOC)) {
                                 ?>
@@ -154,11 +156,31 @@
                         <input type="file" name="Uploadfiles" id="Uploadfiles" />
                     </td>
                 </tr>
+
+                <tr align="center">
+                    <td>
+                        <h4>Institute:<span style="color:red">*</span></h4>            
+                    </td>
+                    <td>
+                        <select class="form-control" name="institute" required>
+                            <option value="">-- Select --</option>
+                        <?php
+                        $inst = $db->query("SELECT * FROM manage_institute");
+                            while ($row1 = $inst->fetch(PDO::FETCH_ASSOC)) {
+                                ?>
+                                <option value="<?= $row1['institute_id'] ?>"><?= $row1['institute_name'] ?></option>
+                                <?php
+                            }
+                        ?>
+                        </select>
+                    </td>
+                    
+                </tr>
             </tbody>
         </table>
         <div style="margin:20px">
             <h4>Course Description:<span style="color:red">*</span></h4>
-            <textarea name="description" class="form-control" rows="15" placeholder="Begin from here..." required></textarea>
+            <textarea name="description" class="form-control ckeditor" rows="15" placeholder="Begin from here..." required></textarea>
         </div>
         <br/>
         <div class="row">
