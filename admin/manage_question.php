@@ -41,10 +41,17 @@
 	<?php 
     require 'access/dbaccess.php';
     
-	$id = 4;
+	$id = 3;
+    if(isset($_GET['courseid'])){
+        $cid = $_GET['courseid'];
+        
+    }else{
+        $cid = NULL;
+    }
 	include("header.php"); 
-    $row = $db->query("SELECT * FROM manage_category");
-    
+    $row = $db->query("SELECT * FROM manage_courses WHERE course_id = '$cid'");
+    $row1 = $row->fetch(PDO::FETCH_ASSOC);
+
 	?>
 	
 	        <div id="page-wrapper">
@@ -54,21 +61,24 @@
                 <!-- Page Heading -->
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header"><i class="fa fa-tags"></i>
-                            Manage Categories
+                        <h1 class="page-header"><i class="fa fa-list-alt"></i>
+                            Manage Questions 
                         </h1>
                         <ol class="breadcrumb">
                             <li>
                                 <i class="fa fa-dashboard"></i>  <a href="index.php">Dashboard</a>
                             </li>
+                            <li>
+                                <i class="fa fa-table"></i>  <a href="manage_courses.php">Manage Courses</a>
+                            </li>
                             <li class="active">
-                                <i class="fa fa-tags"></i> Manage Categories
+                                <i class="fa fa-list-alt"></i> Manage Questions
                             </li>
                         </ol>
                     </div>
                 </div>
                 <!-- /.row -->
-
+                <h3 style="margin-top:-50px; padding-bottom:20px">Course: <?= $row1['course_name'] ?></h3>
         <?php
             if((isset($_GET['status'])) && ($_GET['status'] == "success")){
                 ?>
@@ -76,7 +86,7 @@
                     <div class="col-lg-12">
                         <div class="alert alert-info alert-dismissable">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            Congratulations! The Category was added Successfully.
+                            Congratulations! The Question was added Successfully.
                         </div>
                     </div>
                 </div>
@@ -101,41 +111,37 @@
         <tr>
           <th>Sr.No.</th>
           <th>Category</th>
+          <th>Question</th>
+          
+          <th>Answer</th>
           <th>Action</th>
           </tr>
       </thead>
       <tbody>
       <?php
       $cnt = 1;
-        while($row1 = $row->fetch(PDO::FETCH_ASSOC)){
+        //while($row1 = $row->fetch(PDO::FETCH_ASSOC)){
             ?>
                 <tr>
                 <th >
                     <?php echo $cnt++ ?>
                 </th>
+                <td>cat</td>
+                <td>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</td>
+          
+                <td>asd</td>
                 <td>
-            <div class="media">
-            <div class="media-left media-top">
-                <img class="thumbnail" src="<?= $row1['cat_image'] ?>" alt="Image Not Available" height="110px" width="110px" />
-            </div>
-            <div class="media-body">
-                <h4 class="media-heading"><?= $row1['category_name'] ?></h4>
-                <?= $row1['category_desc'] ?>
-            </div>
-            </div>
-            </td>
-            <td>
-                <button class="btn btn-info" onClick="window.location='add_category.php?id=<?= $row1['category_id'] ?>'"><i class="fa fa-edit"></i> Update Category</button>
-            </td>
-            </tr>      
+                    <button class="btn btn-info" onClick="window.location='add_category.php?id=<?= $row1['category_id'] ?>'"><i class="fa fa-edit"></i> Update</button>
+                </td>
+                </tr>      
             <?php
-        }
+        //}
       ?>
 </tbody>
 </table>
  <div class="row">
         <div align="center">
-            <button class="btn btn-primary" onClick="window.location='add_category.php'"><i class="fa fa-pencil"></i> Add Category</button>
+            <button class="btn btn-primary" onClick="window.location='add_category.php'"><i class="fa fa-pencil"></i> Add Question</button>
             <button class="btn btn-warning" onClick="window.print()"><i class="fa fa-print"></i> Print Data</button>
         </div>
     </div>

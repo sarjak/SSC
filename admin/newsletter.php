@@ -77,7 +77,7 @@ function hid(data){
                 <div style="display:none" class="panel panel-primary" id="ind">
                     <div class="panel-heading">Individual Mail</div>
                     <div class="panel-body">
-            <form method="POST" action="send_mail.php">
+            <form method="POST" action="sendMail.php">
                 <div class="row">
                     <div class="col-md-1" >From: 
                     </div>
@@ -87,10 +87,10 @@ function hid(data){
                 </div>
 
                 <div class="row">
-                    <div class="col-md-1" >To:
+                    <div class="col-md-1" >Title:
                     </div>
                     <div class="col-md-6">
-                    <input type="text" class="form-control" required /><br/>
+                    <input type="text" name="title" class="form-control" required /><br/>
                     </div>
                 </div>
 
@@ -98,7 +98,7 @@ function hid(data){
                     <div class="col-md-1" >Subject: 
                     </div>
                     <div class="col-md-6">
-                    <textarea class="form-control" rows="10" required></textarea><br/>
+                    <textarea name="subject" class="form-control" rows="10" required></textarea><br/>
                     </div>
                 </div>
 

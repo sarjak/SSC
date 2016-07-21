@@ -58,6 +58,13 @@ if(isset($_POST['fileUpload'])){
     $image_path = NULL;
 }
 
+if(isset($_POST['institute'])){
+    $inst_id = $_POST['institute'];
+
+}else{
+    $inst_id = NULL;
+}
+
 if(! empty($_FILES['Uploadfiles']['name'])){
 
 	$extension=array("jpeg","jpg","png","gif");
@@ -91,25 +98,25 @@ if(! empty($_FILES['Uploadfiles']['name'])){
 
 if($type == "add"){
 
-    $result = $db->query("INSERT INTO manage_courses (course_name, course_desc, course_cat_id, course_duration, course_fees, re_exam_fees, image, status ) VALUES ('$course_name', '$course_desc', '$course_cat_id' , '$course_duration', '$course_fees', '$course_re_exam', '$path', 'Active' )");
+    $result = $db->query("INSERT INTO manage_courses (course_name, course_desc, course_cat_id, course_duration, course_fees, re_exam_fees, image, status, institute_id ) VALUES ('$course_name', '$course_desc', '$course_cat_id' , '$course_duration', '$course_fees', '$course_re_exam', '$path', 'Active', $inst_id )");
     if(!$result){
 
             ?>
     <script>
-        window.location = "add_course.php?status=failure";
+        window.location = "manage_course.php?status=failure";
     </script> 
     <?php
         }else{
             ?>
     <script>
-        window.location = "add_course.php?status=success";
+        window.location = "manage_course.php?status=success";
     </script> 
     <?php       
         }
 
 }else if($type == "update"){
 
-    $result = $db->query("UPDATE manage_courses SET course_name = '$course_name', course_desc = '$course_desc', course_cat_id = '$course_cat_id', course_duration = '$course_duration' , course_fees = '$course_fees', re_exam_fees = '$course_re_exam', image = '$path', status = 'Active' WHERE course_id = '$cid'");
+    $result = $db->query("UPDATE manage_courses SET course_name = '$course_name', course_desc = '$course_desc', course_cat_id = '$course_cat_id', course_duration = '$course_duration' , course_fees = '$course_fees', re_exam_fees = '$course_re_exam', image = '$path', status = 'Active', institute_id = '$inst_id' WHERE course_id = '$cid'");
     
     if(!$result){
         ?>

@@ -20,6 +20,7 @@
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     
     <script src="js/jquery.js"></script>
+    <script src="ckeditor/ckeditor/ckeditor.js" ></script>
  
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -96,6 +97,9 @@
 <?php 
     $row = $db->query("SELECT * FROM manage_courses WHERE course_id = '$cid' ");
     $row1 = $row->fetch(PDO::FETCH_ASSOC);
+
+    $inst = $db->query("SELECT * FROM manage_institute ");
+    
 ?>
         <form action="add_courses.php" method="post" enctype="multipart/form-data">
         <input type="hidden" name="type" value="update" />
@@ -168,11 +172,35 @@
                         <input type="hidden" name="fileUpload" value="<?= $row1['image'] ?>" />
                     </td>
                 </tr>
+
+                <tr align="center">
+                    <td>
+                        <h4>Institute:<span style="color:red">*</span></h4>
+                    </td>
+                    <td><select name="institute" class="form-control" required>
+                        <option value="">-- Select --</option>
+                    <?php
+                        while ($inst1 = $inst->fetch(PDO::FETCH_ASSOC)) {
+                            if($row1['institute_id'] == $inst1['institute_id']){
+                            ?>
+                                <option value="<?= $inst1['institute_id'] ?>" selected><?= $inst1['institute_name'] ?></option>
+                            <?php    }else{
+                                 ?>
+                                <option value="<?= $inst1['institute_id'] ?>" ><?= $inst1['institute_name'] ?></option>
+                            <?php
+
+                            }
+
+                        }                    
+                    ?>
+                        </select>
+                    </td>
+                </tr>
             </tbody>
         </table>
         <div style="margin:20 0 20 20">
             <h4>Course Description:<span style="color:red">*</span></h4>
-            <textarea name="description" class="form-control" rows="15" placeholder="Begin from here..." required><?= $row1['course_desc'] ?></textarea>
+            <textarea name="description" class="form-control ckeditor" rows="15" placeholder="Begin from here..." required><?= $row1['course_desc'] ?></textarea>
         </div>
         <br/>
         <div class="row">

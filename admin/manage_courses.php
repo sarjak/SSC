@@ -75,8 +75,8 @@
       <th>Duration</th>    
       <th>Fees</th>
       <th>Re-Exam Fees</th>
-      
       <th>Status</th>
+      <th>Question Bank</th>
       
     </tr>
   </thead>
@@ -87,18 +87,17 @@
     while($row1 = $data->fetch(PDO::FETCH_ASSOC)){
       $cnt++;
       ?>
-      <tr onclick="document.location='view_course.php?courseid=<?= $row1['course_id'] ?>'" style="cursor:hand">
+      <tr style="cursor:hand">
     
-      <th scope="row"><?= $cnt ?></th>
-      <td><?= $row1['course_name'] ?></td>
+      <th onclick="document.location='view_course.php?courseid=<?= $row1['course_id'] ?>'" scope="row"><?= $cnt ?></th>
+      <td onclick="document.location='view_course.php?courseid=<?= $row1['course_id'] ?>'" ><?= $row1['course_name'] ?></td>
       
-      <td><?= $row1['category_name'] ?></td>
-      <td><?= $row1['course_duration'] ?></td>
-      <td><?= $row1['course_fees'] ?></td>
-      <td><?= $row1['re_exam_fees'] ?></td>
-      
-      <td><?= $row1['status'] ?></td>
-
+      <td onclick="document.location='view_course.php?courseid=<?= $row1['course_id'] ?>'" ><?= $row1['category_name'] ?></td>
+      <td onclick="document.location='view_course.php?courseid=<?= $row1['course_id'] ?>'" ><?= $row1['course_duration'] ?></td>
+      <td onclick="document.location='view_course.php?courseid=<?= $row1['course_id'] ?>'" ><?= $row1['course_fees'] ?></td>
+      <td onclick="document.location='view_course.php?courseid=<?= $row1['course_id'] ?>'" ><?= $row1['re_exam_fees'] ?></td>
+      <td onclick="document.location='view_course.php?courseid=<?= $row1['course_id'] ?>'" ><?= $row1['status'] ?></td>
+      <td><button class="btn btn-primary" onClick="window.location='manage_question.php?courseid=<?= $row1['course_id'] ?>'" >Manage Questions</button></td>
       </tr>  
       <?php
     }
@@ -109,7 +108,6 @@
  <div class="row">
         <div align="center">
             <button class="btn btn-primary" onClick="window.location='add_course.php'"><i class="fa fa-pencil"></i> Add Course</button>
-            <button class="btn btn-primary" onClick="window.location='manage_category.php'"><i class="fa fa-tags"></i> Manage Categories</button>
             <button class="btn btn-primary" onClick="window.location='manage_course_material.php'"><i class="fa fa-book"></i> Manage Course Material</button>
             <button class="btn btn-warning" onClick="window.print()"><i class="fa fa-print"></i> Print Data</button>
         </div>

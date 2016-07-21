@@ -42,7 +42,7 @@
 <body>
 	<?php 
     require 'access/dbaccess.php';
-	$id = 3;
+	$id = 4;
     if(isset($_GET['id'])){
         $cat_id = $_GET['id'];
     }else{
@@ -71,9 +71,6 @@
                         <ol class="breadcrumb">
                             <li>
                                 <i class="fa fa-dashboard"></i>  <a href="index.php">Dashboard</a>
-                            </li>
-                            <li>
-                                <i class="fa fa-table"></i>  <a href="manage_courses.php">Manage Courses</a>
                             </li>
                             <li>
                                 <i class="fa fa-tags"></i>  <a href="manage_category.php">Manage Categories</a>

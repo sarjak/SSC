@@ -38,17 +38,21 @@
     require 'access/dbaccess.php';
 	$id = 3;
     if(isset($_GET['courseid'])){
-        $id = $_GET['courseid'];
+        $cid = $_GET['courseid'];
     }else{
-        $id = NULL;
+        $cid = NULL;
     }
 	include("header.php"); 
 
-    $row = $db->query("SELECT * FROM manage_courses WHERE course_id = '$id'");
+    $row = $db->query("SELECT * FROM manage_courses WHERE course_id = '$cid'");
 	$row1 = $row->fetch(PDO::FETCH_ASSOC);
 
     $result = $db->query("SELECT * FROM manage_category WHERE  category_id = '$row1[course_cat_id]' ");
     $result1 = $result->fetch(PDO::FETCH_ASSOC);
+
+    $inst = $db->query("SELECT * FROM manage_institute WHERE  institute_id = '$row1[institute_id]' ");
+    $inst1 = $inst->fetch(PDO::FETCH_ASSOC);
+
 	?>
 	
 	        <div id="page-wrapper">
@@ -143,6 +147,15 @@
                 </td>
                 <td>
                 <b><?= $row1['course_duration'] ?></b> (Days)
+                </td>
+                </tr>
+
+                <tr>
+                <td>
+                <h4>Institute: </h4>
+                </td>
+                <td>
+                <b><?= $inst1['institute_name'] ?></b>
                 </td>
                 </tr>
             </table>

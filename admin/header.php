@@ -147,6 +147,23 @@
               		}
 					?>
                     
+                <?php
+                                        
+                    if($id == 4){
+                        ?>
+                        <li class="active">
+                            <a href="manage_category.php"><i class="fa fa-fw fa-tags"></i> Manage Categories </a>
+                        </li>
+                        <?php
+                    }else{
+                        ?>
+                        <li>
+                            <a href="manage_category.php"><i class="fa fa-fw fa-tags"></i> Manage Categories </a>
+                        </li>
+                        <?php
+                    }
+                    ?>
+
                     <?php
                                         
                     if($id == 3){
@@ -164,9 +181,6 @@
                     }
                     ?>
 
-                    <li>
-                        <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Manage Questions </a>
-                    </li>
               		<?php
               		if($id == 6){
               			?>
