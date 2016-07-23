@@ -15,6 +15,7 @@
 
     <!-- Morris Charts CSS -->
     <link href="css/plugins/morris.css" rel="stylesheet">
+    <link href="welcome.css" rel="stylesheet" type="text/css">
 
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -34,10 +35,58 @@
    $(document).ready(function(){
     $('#mytable').DataTable();
    
+   $('.delo').click(function(){
+        if(confirm("Are you sure you want to delete?")){
+
+            $.ajax({
+            type: "GET",
+            url: 'delete_question.php',
+            data: "qid="+ this.value,
+            success: function(response) {
+                alert("Question Deleted Successfully. Click on REFRESH button.");
+                
+                //window.location = 'manage_question.php';
+            }
+            });
+        }
+   });
+
+    $('a.login-window').click(function() {
+        
+        // Getting the variable's value from a link 
+        var loginBox = $(this).attr('href');
+
+        //Fade in the Popup and add close button
+        $(loginBox).fadeIn(300);
+        
+        //Set the center alignment padding + border
+        var popMargTop = ($(loginBox).height() + 24) / 2; 
+        var popMargLeft = ($(loginBox).width() + 24) / 2; 
+        
+        $(loginBox).css({ 
+            'margin-top' : -popMargTop,
+            'margin-left' : -popMargLeft
+        });
+        
+        // Add the mask to body
+        $('body').append('<div id="mask"></div>');
+        $('#mask').fadeIn(300);
+        
+        return false;
+    });
+
+    $('a.close').on('click', null, function() { 
+        $('#mask , .login-popup').fadeOut(300 , function() {
+            $('#mask').remove();  
+        }); 
+        return false;
+    });
+
 });
 </script>
 </head>
 <body>
+
 	<?php 
     require 'access/dbaccess.php';
     
@@ -49,15 +98,37 @@
         $cid = NULL;
     }
 	include("header.php"); 
-    $row = $db->query("SELECT * FROM manage_courses WHERE course_id = '$cid'");
-    $row1 = $row->fetch(PDO::FETCH_ASSOC);
+    $row = $db->query("SELECT * FROM manage_questions WHERE course_id = '$cid'");
+    $course = $db->query("SELECT * FROM manage_courses WHERE course_id = '$cid'");
+    $course1 = $course->fetch(PDO::FETCH_ASSOC);
 
 	?>
-	
+    <div id="btech" class="login-popup">
+        <a href="#" class="close"><img src="./img/close_pop.png" class="btn_close" title="Close Window" alt="Close"></a>
+          <form method="post" class="signin" action="import_questions.php" enctype="multipart/form-data">
+            <input type="hidden" name="cid" value="<?= $cid ?>" />
+            <fieldset class="textbox">
+            <div align="center">
+                <span style="color:white;height:20px;width:100%">Import Questions</span>
+            </div>
+            <hr>
+            <div align="center">
+            <label class="username">
+                <span>Upload File: </span>
+                <input type="file" name="Uploadfile" />
+            </label>
+
+            </div>
+            <br/>
+            <div align="center">
+                <button style="width:160px" class="btn btn-primary" type="submit" >Submit</button>
+            </div><br/><hr>
+            <div style="color:white;text-align:center;width:100%">Please Note:- Only .csv file extensions are allowed.</div>
+            </fieldset>
+          </form>
+        </div>
 	        <div id="page-wrapper">
-
             <div class="container-fluid">
-
                 <!-- Page Heading -->
                 <div class="row">
                     <div class="col-lg-12">
@@ -78,18 +149,31 @@
                     </div>
                 </div>
                 <!-- /.row -->
-                <h3 style="margin-top:-50px; padding-bottom:20px">Course: <?= $row1['course_name'] ?></h3>
+                <h3 style="margin-top:-50px; padding-bottom:20px">Course: <?= $course1['course_name'] ?></h3>
         <?php
+            if((isset($_GET['state'])) && ($_GET['state'] == "success")){
+                ?>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="alert alert-success alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            Good Job! The Questions were imported Successfully.
+                        </div>
+                    </div>
+                </div>
+                <?php
+            }
             if((isset($_GET['status'])) && ($_GET['status'] == "success")){
                 ?>
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="alert alert-info alert-dismissable">
+                        <div class="alert alert-success alert-dismissable">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                             Congratulations! The Question was added Successfully.
                         </div>
                     </div>
                 </div>
+
                 <?php
             }else if((isset($_GET['status'])) && ($_GET['status'] == "failure")){
                 ?>
@@ -110,7 +194,7 @@
       <thead>
         <tr>
           <th>Sr.No.</th>
-          <th>Category</th>
+          
           <th>Question</th>
           
           <th>Answer</th>
@@ -120,31 +204,40 @@
       <tbody>
       <?php
       $cnt = 1;
-        //while($row1 = $row->fetch(PDO::FETCH_ASSOC)){
+        while($row1 = $row->fetch(PDO::FETCH_ASSOC)){
             ?>
                 <tr>
                 <th >
                     <?php echo $cnt++ ?>
                 </th>
-                <td>cat</td>
-                <td>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</td>
+           
+                <td><?php echo $row1['question'] ?></td>
           
-                <td>asd</td>
+                <td><?php echo $row1['answer'] ?></td>
                 <td>
-                    <button class="btn btn-info" onClick="window.location='add_category.php?id=<?= $row1['category_id'] ?>'"><i class="fa fa-edit"></i> Update</button>
+                    <button class="btn btn-info" onClick="window.location='add_question.php?courseid=<?= $cid ?>&amp;qid=<?= $row1['question_id'] ?>'"><i class="fa fa-edit"></i> Update</button>
+                    <button value="<?= $row1['question_id'] ?>" class="btn btn-danger delo"><i class="fa fa-remove"></i> Delete</button>
+                    
                 </td>
                 </tr>      
             <?php
-        //}
+        }
       ?>
 </tbody>
 </table>
  <div class="row">
         <div align="center">
-            <button class="btn btn-primary" onClick="window.location='add_category.php'"><i class="fa fa-pencil"></i> Add Question</button>
+            <button class="btn btn-primary" onClick="window.location='manage_question.php?courseid=<?= $cid ?>'"><i class="fa fa-refresh"></i> Refresh</button>
+            <button class="btn btn-primary" onClick="window.location='add_question.php?courseid=<?= $cid ?>'"><i class="fa fa-pencil"></i> Add Question</button>
             <button class="btn btn-warning" onClick="window.print()"><i class="fa fa-print"></i> Print Data</button>
+            <a href="#btech" class="login-window btn btn-primary">Import Questions</a>
         </div>
     </div>
+    <br/>
+    <a href="Questions.csv" download>
+    <div class="alert alert-info" style="cursor:hand;text-align:center">
+        <b>Click here to download the Format for Importing Questions.</b>
+    </div></a>
     <hr>
 
                 </div>

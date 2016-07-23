@@ -24,6 +24,8 @@
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
+    <link href="welcome.css" rel="stylesheet" type="text/css">
+
     <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet" >
     
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -38,6 +40,37 @@
 <script type="text/javascript">
    $(document).ready(function(){
     $('#table').DataTable();
+
+    $('a.login-window').click(function() {
+        
+        // Getting the variable's value from a link 
+        var loginBox = $(this).attr('href');
+
+        //Fade in the Popup and add close button
+        $(loginBox).fadeIn(300);
+        
+        //Set the center alignment padding + border
+        var popMargTop = ($(loginBox).height() + 24) / 2; 
+        var popMargLeft = ($(loginBox).width() + 24) / 2; 
+        
+        $(loginBox).css({ 
+            'margin-top' : -popMargTop,
+            'margin-left' : -popMargLeft
+        });
+        
+        // Add the mask to body
+        $('body').append('<div id="mask"></div>');
+        $('#mask').fadeIn(300);
+        
+        return false;
+    });
+
+    $('a.close').on('click', null, function() { 
+        $('#mask , .login-popup').fadeOut(300 , function() {
+            $('#mask').remove();  
+        }); 
+        return false;
+    });
    
 });
      
@@ -49,7 +82,28 @@
 	$id = 2;
 	include("header.php"); 
 	?>
-	
+	<div id="btech" class="login-popup">
+     <a href="#" class="close"><img src="./img/close_pop.png" class="btn_close" title="Close Window" alt="Close"></a>
+        <form method="post" class="signin" action="import_students.php" enctype="multipart/form-data">
+           <input type="hidden" name="cid" value="<?= $cid ?>" />
+            <fieldset class="textbox">
+            <div style="color:white;text-align:center;width:100%;padding-top:10px">Import Students</div>
+            <hr>
+            <div align="center">
+            <label class="username">
+                <span>Upload File: </span>
+                <input type="file" name="Uploadfile" />
+            </label>
+
+            </div>
+            <br/>
+            <div align="center">
+                <button style="width:160px" class="btn btn-primary" type="submit" >Submit</button>
+            </div><br/><hr>
+            <div style="color:white;text-align:center;width:100%">Please Note:- Only .csv file extensions are allowed.</div>
+         </fieldset>
+     </form>
+  </div>
 	        <div id="page-wrapper">
 
             <div class="container-fluid">
@@ -71,11 +125,62 @@
                     </div>
                 </div>
                 <!-- /.row -->
+<?php
+            if((isset($_GET['state'])) && ($_GET['state'] == "success")){
+                ?>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="alert alert-success alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            Good Job! The Students were imported Successfully.
+                        </div>
+                    </div>
+                </div>
+                <?php
+            }else if((isset($_GET['state'])) && ($_GET['state'] == "failure")){
+              ?>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="alert alert-danger alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <?php echo $_GET['msg']; ?>
+                        </div>
+                    </div>
+                </div>
+                <?php
+            }
+            ?>
+      <?php
+      if((isset($_GET['status'])) && ($_GET['status'] == "success")){
+        ?>
+        <div class="row">
+                    <div class="col-lg-12">
+                        <div class="alert alert-success alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            Excellent! The Files have been uploaded Successfully.
+                        </div>
+                    </div>
+                </div>
+        <?php
+      }else if((isset($_GET['status'])) && ($_GET['status'] == "failure")){
+        ?>
+        <div class="row">
+                    <div class="col-lg-12">
+                        <div class="alert alert-danger alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              Oops! Something went Wrong.
+                        </div>
+                    </div>
+                </div>
+        <?php
+      }    
+      ?>
 
     <div class="row">
         <div align="center">
             <button class="btn btn-primary" onClick="window.location='add_student.php'">Add Student</button>
-            <button class="btn btn-primary" onClick="window.print()">Print Data</button>
+            <a href="#btech" class="login-window btn btn-primary">Import Students</a>
+            <button class="btn btn-warning" onClick="window.print()">Print Data</button>
             
         </div>
     </div>
@@ -122,43 +227,12 @@
   </tbody>
 </table>
 </div>
-			<?php
-			if((isset($_GET['status'])) && ($_GET['status'] == "success")){
-				?>
- 				<div class="row">
-                    <div class="col-lg-12">
-                        <div class="alert alert-info alert-dismissable">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            Excellent! The Files have been uploaded Successfully.
-                        </div>
-                    </div>
-                </div>
-				<?php
-			}else if((isset($_GET['status'])) && ($_GET['status'] == "failure")){
-				?>
-				<div class="row">
-                    <div class="col-lg-12">
-                        <div class="alert alert-danger alert-dismissable">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-							Oops! Something went Wrong.
-                        </div>
-                    </div>
-                </div>
-				<?php
-			}
-			
-?>
-<!--
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="alert alert-info alert-dismissable">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            <i class="fa fa-info-circle"></i>  <strong>Like SB Admin?</strong> Try out <a href="http://startbootstrap.com/template-overviews/sb-admin-2" class="alert-link">SB Admin 2</a> for additional features!
-                        </div>
-                    </div>
-                </div>
-    -->
-
+  <br/>
+    <a href="Students.csv" download>
+      <div class="alert alert-info" style="cursor:hand;text-align:center">
+          <b>Click here to download the Format for Importing Students.</b>
+      </div>
+    </a>
 
             </div>
             <!-- /.container-fluid -->

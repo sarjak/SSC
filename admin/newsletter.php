@@ -22,7 +22,7 @@
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
- 
+    <script src="ckeditor/ckeditor/ckeditor.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -72,6 +72,7 @@ function hid(data){
                 <div align="center">
                     <button class="btn btn-primary" onclick="hid(1)">Mail To Individual</button>
                     <button class="btn btn-primary" onclick="hid(2)">Mail To Group</button>
+                    <button class="btn btn-primary" onclick="window.location='read_mail.php'">Read Mail</button>
                 </div><br/>
 
                 <div style="display:none" class="panel panel-primary" id="ind">
@@ -79,10 +80,10 @@ function hid(data){
                     <div class="panel-body">
             <form method="POST" action="sendMail.php">
                 <div class="row">
-                    <div class="col-md-1" >From: 
+                    <div class="col-md-1" >To:
                     </div>
                     <div class="col-md-6">
-                    <input type="text" value="sscorporation-admin@gmail.com" class="form-control" readonly /><br/>
+                    <input type="text" name="to" class="form-control" /><br/>
                     </div>
                 </div>
 
@@ -97,8 +98,8 @@ function hid(data){
                 <div class="row">
                     <div class="col-md-1" >Subject: 
                     </div>
-                    <div class="col-md-6">
-                    <textarea name="subject" class="form-control" rows="10" required></textarea><br/>
+                    <div class="col-md-11">
+                    <textarea name="subject" class="ckeditor" rows="10" required></textarea><br/>
                     </div>
                 </div>
 
