@@ -35,13 +35,13 @@
    $(document).ready(function(){
     $('#mytable').DataTable();
    
-   $('.delo').click(function(){
+    $("#mytable").on("click", ".delo", function(){
         if(confirm("Are you sure you want to delete?")){
 
             $.ajax({
             type: "GET",
-            url: 'delete_question.php',
-            data: "qid="+ this.value,
+            url: 'delete_code.php',
+            data: "type=question&id="+ this.value,
             success: function(response) {
                 alert("Question Deleted Successfully. Click on REFRESH button.");
                 
@@ -49,7 +49,7 @@
             }
             });
         }
-   });
+    });
 
     $('a.login-window').click(function() {
         
@@ -193,12 +193,10 @@
       <table id="mytable">
       <thead>
         <tr>
-          <th>Sr.No.</th>
-          
+          <th style="width:10px">Sr.No.</th>
           <th>Question</th>
-          
           <th>Answer</th>
-          <th>Action</th>
+          <th >Action</th>
           </tr>
       </thead>
       <tbody>

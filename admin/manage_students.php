@@ -194,7 +194,7 @@
       <th>Last Name</th>
       <th>Username</th>    
       <th>Gender</th>
-      <th>DOB</th>
+      <th style="width:80px">DOB</th>
       <th>Email</th>
       <th>Mobile No.</th>
       <th>Landline</th>
@@ -202,7 +202,7 @@
   </thead>
   <tbody>
   <?php
-    $row = $db->query("SELECT * FROM manage_students");
+    $row = $db->query("SELECT * FROM manage_students WHERE active = 1");
     $cnt = 0;
     while($row1 = $row->fetch(PDO::FETCH_ASSOC)){
       $cnt++;

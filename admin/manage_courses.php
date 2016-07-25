@@ -72,6 +72,7 @@
       <th>#</th>
       <th>Course</th>
       <th>Category</th>
+      <th>Institute</th>
       <th>Duration</th>    
       <th>Fees</th>
       <th>Re-Exam Fees</th>
@@ -84,8 +85,11 @@
   <?php
     $cnt = 0;
     $data = $db->query("SELECT * FROM manage_courses as course JOIN manage_category as cat WHERE course_cat_id = category_id");
+
     while($row1 = $data->fetch(PDO::FETCH_ASSOC)){
       $cnt++;
+      $inst = $db->query("SELECT institute_name FROM manage_institute WHERE institute_id = '$row1[institute_id]' ");
+      $inst1 = $inst->fetch(PDO::FETCH_ASSOC);
       ?>
       <tr style="cursor:hand">
     
@@ -93,6 +97,7 @@
       <td onclick="document.location='view_course.php?courseid=<?= $row1['course_id'] ?>'" ><?= $row1['course_name'] ?></td>
       
       <td onclick="document.location='view_course.php?courseid=<?= $row1['course_id'] ?>'" ><?= $row1['category_name'] ?></td>
+      <td onclick="document.location='view_course.php?courseid=<?= $row1['course_id'] ?>'" ><?= $inst1['institute_name'] ?></td>
       <td onclick="document.location='view_course.php?courseid=<?= $row1['course_id'] ?>'" ><?= $row1['course_duration'] ?></td>
       <td onclick="document.location='view_course.php?courseid=<?= $row1['course_id'] ?>'" ><?= $row1['course_fees'] ?></td>
       <td onclick="document.location='view_course.php?courseid=<?= $row1['course_id'] ?>'" ><?= $row1['re_exam_fees'] ?></td>

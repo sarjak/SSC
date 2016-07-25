@@ -17,13 +17,14 @@ extract($_POST);
                         $file_tmp=$_FILES["files"]["tmp_name"][$key];
                         move_uploaded_file($file_tmp,"images/".$file_name);
                         $filename = $file_name;
-                        $path = "images/".$file_name;
+                        $path = "images/".$filename;
                     }
                     else
                     {
                         $filename=basename($file_name,$ext);
                         $newFileName=$filename.time().".".$ext;
-                        $path = "images/".$filename;
+                        $filename = $filename.".".$ext;
+                        $path = "images/".$newFileName;
                         move_uploaded_file($file_tmp=$_FILES["files"]["tmp_name"][$key],"images/".$newFileName);
                     }
                 }
@@ -31,7 +32,7 @@ extract($_POST);
                 {
                     array_push($error,"$file_name, ");
                 }
-                $retval = $db->query("INSERT INTO manage_images (image_name, image_path, image_category, flag) VALUES ('$filename', '$path', 'None', 0)");
+                $retval = $db->query("INSERT INTO manage_images (image_name, image_path, image_category, flag) VALUES ('$filename', '$path', 'None', 1)");
             }
  //           $filename=basename($file_name,pathinfo(,PATHINFO_EXTENSION));
 

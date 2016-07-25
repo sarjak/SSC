@@ -29,7 +29,25 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.delo').click(function(){
+        if(confirm("Are you sure you want to delete?")){
 
+            $.ajax({
+            type: "GET",
+            url: 'delete_code.php',
+            data: "type=student&id="+ this.value,
+            success: function(response) {
+                alert("Student Deleted Successfully.");
+                window.location = 'manage_students.php';
+            }
+            });
+        }
+   });
+    });
+
+</script>
 </head>
 <body>
 	<?php 
@@ -42,7 +60,7 @@
 	$id = 2;
 	include("header.php"); 
 	
-    $data = $db->query("SELECT * FROM manage_students WHERE username='$username'");
+    $data = $db->query("SELECT * FROM manage_students WHERE username = '$username' ");
     $row = $data->fetch(PDO::FETCH_ASSOC);
 	?>
 	
@@ -210,6 +228,7 @@
         <div class="col-lg-12" align="center">
         <button class="btn btn-primary" onclick="window.location='update_student.php?stdnt=<?= $row['username'] ?>'"><i class="fa fa-edit"></i> Edit</button>
         <button class="btn btn-warning" onclick="window.print()"><i class="fa fa-print"></i> Print</button>
+        <button value="<?= $row['username'] ?>" class="btn btn-danger delo"><i class="fa fa-remove"></i> Delete</button>
         </div>
         </div>
 

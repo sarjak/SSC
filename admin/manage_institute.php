@@ -33,6 +33,25 @@
 <script type="text/javascript">
    $(document).ready(function(){
     $('#mytable').DataTable();
+
+    $("#mytable").on("click", ".delo", function(){
+        if(confirm("Are you sure you want to delete?")){
+
+            $.ajax({
+            type: "GET",
+            url: 'delete_code.php',
+            data: "type=institute&id="+ this.value,
+            success: function(response) {
+                if(response >= "1"){
+                    window.location = 'manage_institute.php?state=failure';    
+                }else{
+                    
+                    window.location = 'manage_institute.php?state=success';
+                }
+            }
+            });
+        }
+    });
    
 });
 </script>
@@ -43,7 +62,7 @@
     
 	$id = 7;
 	include("header.php"); 
-    $row = $db->query("SELECT * FROM manage_institute");
+    $row = $db->query("SELECT * FROM manage_institute WHERE flag = 1");
     
 	?>
 	
@@ -75,7 +94,7 @@
                 ?>
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="alert alert-info alert-dismissable">
+                        <div class="alert alert-success alert-dismissable">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                             Great..! The Institute was added Successfully.
                         </div>
@@ -97,11 +116,38 @@
             
             ?>
 
+            <?php
+            if((isset($_GET['state'])) && ($_GET['state'] == "success")){
+                ?>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="alert alert-success alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            Great..! The Institute was deleted Successfully.
+                        </div>
+                    </div>
+                </div>
+                <?php
+            }else if((isset($_GET['state'])) && ($_GET['state'] == "failure")){
+                ?>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="alert alert-danger alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            Opps! You <b>Cannot Delete</b> this Institute, because you might have <b>one or more courses active</b> with this institute.
+                        </div>
+                    </div>
+                </div>
+                <?php
+            }
+            
+            ?>
+
       <table id="mytable">
       <thead>
         <tr>
           <th>Sr.No.</th>
-          <th>Institute Details</th>
+          <th >Institute Details</th>
           <th>Action</th>
           </tr>
       </thead>
@@ -114,7 +160,7 @@
                 <th >
                     <?php echo $cnt++ ?>
                 </th>
-                <td>
+                <td style="width:70%">
             <div class="media">
             <div class="media-left media-top">
                 <img class="thumbnail" src="<?= $row1['institute_image'] ?>" alt="Image Not Available" height="110px" width="110px" />
@@ -126,7 +172,8 @@
             </div>
             </td>
             <td>
-                <button class="btn btn-info" onClick="window.location='add_institute.php?inst_id=<?= $row1['institute_id'] ?>'"><i class="fa fa-edit"></i> Update Details</button>
+                <button class="btn btn-info" onClick="window.location='add_institute.php?inst_id=<?= $row1['institute_id'] ?>'"><i class="fa fa-edit"></i> Update</button>
+                <button value="<?= $row1['institute_id'] ?>" class="btn btn-danger delo" ><i class="fa fa-remove"></i> Delete</button>
             </td>
             </tr>      
             <?php

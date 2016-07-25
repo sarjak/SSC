@@ -44,11 +44,12 @@
 	$id = 7;
     if(isset($_GET['inst_id'])){
         $inst_id = $_GET['inst_id'];
+
     }else{
         $inst_id = NULL;
     }
 	include("header.php"); 
-    if($inst_id){
+    if(!is_null($inst_id)){
         $row = $db->query("SELECT * FROM manage_institute WHERE institute_id = '$inst_id'");
         $row1 = $row->fetch(PDO::FETCH_ASSOC);
 
@@ -212,7 +213,7 @@
                     <hr>
                 </form>
                 <?php
-}            
+                }            
             ?>
 
             </div>
