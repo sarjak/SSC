@@ -1,3 +1,6 @@
+<?php
+
+?>
 <html>
 <head>
 
@@ -48,7 +51,7 @@
                         <span style="font-size:20px;padding-right:20px">Username:</span>
                     </td>
                     <td>
-                        <input type="text" name="username" class="form-control" id="username" />
+                        <input type="text" name="username" class="form-control" id="username" required />
                     </td>
                 </tr>
 
@@ -57,7 +60,7 @@
                         <span style="font-size:20px;padding-right:20px">Password:</span>
                     </td>
                     <td>
-                        <input type="password" name="password" class="form-control" />
+                        <input type="password" name="password" class="form-control" required />
                     </td>
                 </tr>
             </table>

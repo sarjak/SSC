@@ -7,8 +7,6 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-
-
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
