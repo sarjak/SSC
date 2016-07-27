@@ -98,7 +98,7 @@ if(! empty($_FILES['Uploadfiles']['name'])){
 
 if($type == "add"){
 
-    $result = $db->query("INSERT INTO manage_courses (course_name, course_desc, course_cat_id, course_duration, course_fees, re_exam_fees, image, status, institute_id ) VALUES ('$course_name', '$course_desc', '$course_cat_id' , '$course_duration', '$course_fees', '$course_re_exam', '$path', 'Active', $inst_id )");
+    $result = $db->query("INSERT INTO manage_courses (course_name, course_desc, course_cat_id, course_duration, course_fees, re_exam_fees, image, status, institute_id, flag ) VALUES ('$course_name', '$course_desc', '$course_cat_id' , '$course_duration', '$course_fees', '$course_re_exam', '$path', 'Active', $inst_id, 1 )");
     if(!$result){
 
             ?>

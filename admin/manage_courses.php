@@ -84,7 +84,7 @@
   <tbody>
   <?php
     $cnt = 0;
-    $data = $db->query("SELECT * FROM manage_courses as course JOIN manage_category as cat WHERE course_cat_id = category_id");
+    $data = $db->query("SELECT * FROM manage_courses as course JOIN manage_category as cat WHERE course_cat_id = category_id and course.flag = 1");
 
     while($row1 = $data->fetch(PDO::FETCH_ASSOC)){
       $cnt++;
@@ -101,7 +101,7 @@
       <td onclick="document.location='view_course.php?courseid=<?= $row1['course_id'] ?>'" ><?= $row1['course_duration'] ?></td>
       <td onclick="document.location='view_course.php?courseid=<?= $row1['course_id'] ?>'" ><?= $row1['course_fees'] ?></td>
       <td onclick="document.location='view_course.php?courseid=<?= $row1['course_id'] ?>'" ><?= $row1['re_exam_fees'] ?></td>
-      <td onclick="document.location='view_course.php?courseid=<?= $row1['course_id'] ?>'" ><?= $row1['status'] ?></td>
+      <th onclick="document.location='view_course.php?courseid=<?= $row1['course_id'] ?>'" ><?= $row1['status'] ?></th>
       <td><button class="btn btn-primary" onClick="window.location='manage_question.php?courseid=<?= $row1['course_id'] ?>'" >Manage Questions</button></td>
       </tr>  
       <?php

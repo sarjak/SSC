@@ -53,6 +53,9 @@
     $inst = $db->query("SELECT * FROM manage_institute WHERE  institute_id = '$row1[institute_id]' ");
     $inst1 = $inst->fetch(PDO::FETCH_ASSOC);
 
+    $exam = $db->query("SELECT * FROM manage_exam WHERE exam_id = '$cid' ");
+    $exam1 = $exam->fetch(PDO::FETCH_ASSOC);
+
 	?>
 	
 	        <div id="page-wrapper">
@@ -86,7 +89,7 @@
                     <div class="col-lg-12">
                         <div class="alert alert-info alert-dismissable">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            Nice! The Course was added Successfully.
+                            Nice! The Exam was created Successfully.
                         </div>
                     </div>
                 </div>
@@ -201,9 +204,117 @@
     <div class="row">
         <div class="col-lg-12" align="center">
             <button class="btn btn-primary" onclick="window.location='update_course.php?courseid=<?= $row1['course_id'] ?>'"><i class="fa fa-edit"></i> Edit</button>
+            
             <button class="btn btn-warning" onclick="window.print()"><i class="fa fa-print"></i> Print</button>
         </div>
     </div>
+
+    <h3 ><b>Exam Details</b></h3><hr>
+    <div class="jumbotron">
+<?php 
+if($exam1){
+?>
+    <div class="row">
+        <div class="col-sm-6">
+            <table width="100%">
+                <tr>
+                    <th>
+                       <h4> Exam Name:</h4>
+                    </th>
+                    <td>
+                        <?= $row1['course_name'] ?>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>
+                        <h4> No. of Questions:</h4>
+                    </th>
+                    <td>
+                        <?= $exam1['no_of_ques'] ?> 
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>
+                        <h4> Marks Per Question: </h4>
+                    </th>
+                    <td>
+                        <?= $exam1['marks_per_ques'] ?>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>
+                        <h4> Total Marks </h4>
+                    </th>
+                    <td>
+                        <?= $exam1['marks_per_ques'] * $exam1['no_of_ques']  ?>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-sm-6">
+            <table width="100%">
+                <tr>
+                    <th>
+                       <h4> Duration:</h4>
+                    </th>
+                    <td>
+                        <?= $exam1['duration'] ?> <small>(Minutes)</small>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>
+                        <h4> Negative Marking:</h4>
+                    </th>
+                    <td>
+                        <?php 
+                            if($exam1['neg_marking'] == 0){
+                                echo "<b>No</b>";
+                            }else{
+                                echo "<b>Yes</b>";
+                            }
+
+                        ?>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>
+                        <h4> Negative Marks: </h4>
+                    </th>
+                    <td>
+                        <?= $exam1['neg_marks_per_ques'] ?>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>
+                        <h4> Passing Marks </h4>
+                    </th>
+                    <td>
+                        <?= $exam1['pass_marks'] ?>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <br/>
+    <div align="center">
+        <button class="btn btn-primary" onclick="window.location='create_exam.php?courseid=<?= $row1['course_id'] ?>'"><i class="fa fa-check"></i> Update Exam </button>
+    </div>
+<?php
+}else{
+?>
+<div align="center">
+<button class="btn btn-primary" onclick="window.location='create_exam.php?courseid=<?= $row1['course_id'] ?>'"><i class="fa fa-check"></i> Create Exam</button>
+</div>
+<?php
+}
+?>
+</div>
 <?php
     $link = $db->query("SELECT * FROM manage_course_material WHERE course_id = '$row1[course_id]' AND notes_category = 'link'");
 ?>

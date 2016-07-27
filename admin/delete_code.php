@@ -34,6 +34,19 @@ if($type == "question"){
 		echo $cnt;
 	}
 	
+}elseif ($type == "category") {
+	$row = $db->query("SELECT * FROM manage_courses WHERE course_cat_id = '$id' AND flag = 1 ");
+	
+	$cnt=0;
+
+	while($rows = $row->fetch(PDO::FETCH_ASSOC)){
+		$cnt++;
+	}
+	if($cnt == 0){
+		$row = $db->query("UPDATE manage_category SET flag = 0 WHERE category_id = '$id'");
+	}else{
+		echo $cnt;
+	}
 }
 
 

@@ -34,6 +34,25 @@
    $(document).ready(function(){
     $('#mytable').DataTable();
    
+    $("#mytable").on("click", ".delo", function(){
+        if(confirm("Are you sure you want to delete?")){
+
+            $.ajax({
+            type: "GET",
+            url: 'delete_code.php',
+            data: "type=category&id="+ this.value,
+            success: function(response) {
+                if(response >= "1"){
+                    window.location = 'manage_category.php?state=failure';    
+                }else{
+                    
+                    window.location = 'manage_category.php?state=success';
+                }
+            }
+            });
+        }
+    });
+
 });
 </script>
 </head>
@@ -43,7 +62,7 @@
     
 	$id = 4;
 	include("header.php"); 
-    $row = $db->query("SELECT * FROM manage_category");
+    $row = $db->query("SELECT * FROM manage_category WHERE flag = 1");
     
 	?>
 	
@@ -68,13 +87,39 @@
                     </div>
                 </div>
                 <!-- /.row -->
+            <?php
+            if((isset($_GET['state'])) && ($_GET['state'] == "success")){
+                ?>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="alert alert-success alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            Nice! The Category was <b>deleted</b> Successfully.
+                        </div>
+                    </div>
+                </div>
+                <?php
+            }else if((isset($_GET['state'])) && ($_GET['state'] == "failure")){
+                ?>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="alert alert-danger alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            Opps! You <b>Cannot Delete</b> this Category, because you might have <b>one or more courses active</b> under this category.
+                        </div>
+                    </div>
+                </div>
+                <?php
+            }
+            
+            ?>
 
         <?php
             if((isset($_GET['status'])) && ($_GET['status'] == "success")){
                 ?>
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="alert alert-info alert-dismissable">
+                        <div class="alert alert-success alert-dismissable">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                             Congratulations! The Category was added Successfully.
                         </div>
@@ -113,7 +158,7 @@
                 <th >
                     <?php echo $cnt++ ?>
                 </th>
-                <td>
+                <td style="width:70%">
             <div class="media">
             <div class="media-left media-top">
                 <img class="thumbnail" src="<?= $row1['cat_image'] ?>" alt="Image Not Available" height="110px" width="110px" />
@@ -125,7 +170,8 @@
             </div>
             </td>
             <td>
-                <button class="btn btn-info" onClick="window.location='add_category.php?id=<?= $row1['category_id'] ?>'"><i class="fa fa-edit"></i> Update Category</button>
+                <button class="btn btn-info" onClick="window.location='add_category.php?id=<?= $row1['category_id'] ?>'"><i class="fa fa-edit"></i> Update</button>
+                <button value="<?= $row1['category_id'] ?>" class="btn btn-danger delo" ><i class="fa fa-remove"></i> Delete</button>
             </td>
             </tr>      
             <?php

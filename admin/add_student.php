@@ -18,7 +18,7 @@
     <!-- Morris Charts CSS -->
     <link href="css/plugins/morris.css" rel="stylesheet">
 
-    <!-- Custom Fonts -->
+    <!-- Custom Fonts -->.
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     
     <script src="js/jquery.js"></script>
@@ -29,7 +29,23 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#username').on('blur',function(){
+            $.ajax({
+                type: "GET",
+                url: 'validate_username.php',
+                data: "user="+ this.value,
+                success: function(response){
+                    if(response >= "1"){
+                        alert("Username already exists. Please enter a different username")
+                        $('#username').focus();
+                    }
+                }
+            });
+        });
+    });
+</script>
 </head>
 <body>
 	<?php 
@@ -137,7 +153,7 @@
             <h4>Username:<span style="color:red">*</span></h4>
         </div>
         <div class="col-md-3">
-            <input type="text" name="username" class="form-control" required />
+            <input type="text" name="username" id="username" class="form-control" required />
         </div>
         </div>
 
