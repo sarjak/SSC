@@ -47,6 +47,8 @@ if($type == "question"){
 	}else{
 		echo $cnt;
 	}
+}elseif ($type == "awards") {
+	$row = $db->query("UPDATE manage_awards SET flag = 0 WHERE id = '$id'");
 }
 
 

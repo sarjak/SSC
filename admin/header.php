@@ -141,9 +141,22 @@ if($_SESSION['sid'] == session_id()){
                     }
                     ?>
                     
-                    <li>
-                        <a href="bootstrap-grid.html"><i class="fa fa-fw fa-trophy"></i> Manage Achievements &amp; Awards</a>
-                    </li>
+                    <?php
+                    if($id == 5){
+                        ?>
+                        <li class="active">
+                            <a href="manage_awards.php"><i class="fa fa-fw fa-trophy"></i> Manage Achievements &amp; Awards</a>
+                        </li>
+                        <?php
+                    }else{
+                        ?>
+                        <li>
+                            <a href="manage_awards.php"><i class="fa fa-fw fa-trophy"></i> Manage Achievements &amp; Awards</a>
+                        </li>
+                        <?php
+                    }
+                    ?>
+
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-home"></i> Manage HomePage <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo" class="collapse">
