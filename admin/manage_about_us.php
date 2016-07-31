@@ -24,7 +24,7 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
  
-    <script src="ckeditor/ckeditor/ckeditor.js"></script>
+    <script src="ckedito2/ckeditor.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -41,18 +41,9 @@
 <body>
 	<?php 
     require 'access/dbaccess.php';
-	$id = 7;
-    if(isset($_GET['inst_id'])){
-        $inst_id = $_GET['inst_id'];
+	$id = 9;
 
-    }else{
-        $inst_id = NULL;
-    }
 	include("header.php"); 
-    if(!is_null($inst_id)){
-        $row = $db->query("SELECT * FROM manage_institute WHERE institute_id = '$inst_id'");
-        $row1 = $row->fetch(PDO::FETCH_ASSOC);
-
         ?>
         <div id="page-wrapper">
 
@@ -62,26 +53,20 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header"><i class="fa fa-edit"></i>
-                            Update Institute Details
+                            Manage About Us
                         </h1>
                         <ol class="breadcrumb">
                             <li>
                                 <i class="fa fa-dashboard"></i>  <a href="index.php">Dashboard</a>
                             </li>
-                            <li>
-                                <i class="fa fa-bank"></i>  <a href="manage_institute.php">Manage Institute</a>
-                            </li>
                             <li class="active">
-                                <i class="fa fa-edit"></i> Update Institute Details
+                                <i class="fa fa-edit"></i> Manage About Us
                             </li>
                         </ol>
                     </div>
                 </div>
                 <!-- /.row -->
 
-                <div class="well">
-                    Note:- Fields marked with <span style="color:red">*</span> are mandatory.
-                </div>
                 <?php
             if((isset($_GET['status'])) && ($_GET['status'] == "success")){
                 ?>
@@ -89,7 +74,7 @@
                     <div class="col-lg-12">
                         <div class="alert alert-success alert-dismissable">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            Great! The Institute Details were updated Successfully.
+                            Great...! The <b>About Us</b> Details were updated Successfully.
                         </div>
                     </div>
                 </div>
@@ -105,91 +90,77 @@
                     </div>
                 </div>
                 <?php
-            }
-            
+                }
             ?>
-                <form action="add_inst.php" method="post" enctype="multipart/form-data" >
-                    <input type="hidden" name="type" value="update" />
-                    <input type="hidden" name="id" value="<?= $inst_id ?>" />
-                    <input type="hidden" name="inst_image" value="<?= $row1['institute_image'] ?>" />
-                    <div class="row">
-                        <div class="col-lg-2">
-                            Institute Name:<span style="color:red">*</span>
-                        </div>
-                        <div class="col-lg-3">
-                            <input type="text" name="inst_name" class="form-control" value="<?= $row1['institute_name'] ?>" required />
-                        </div>
-                        <div class="col-lg-2">
-                            Upload Image:
-                        </div>
-                        <div class="col-lg-3">
-                            <input type="file" name="Uploadfiles" />
-                        </div>
-                    </div><br/>
-                    <div class="row">
-                        <div class="col-lg-2">
-                            Institute Description:<span style="color:red">*</span>
-                        </div>
-                        <div class="col-lg-10">
-                            <textarea type="text" name="inst_desc" class="ckeditor form-control" required><?= $row1['institute_desc'] ?></textarea>
-                        </div>
-                    </div>
-                    <br/>
-                    <div class="row">
-                        <div align="center" class="col-lg-12">
-                            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
-                            <button type="reset" class="btn btn-danger"><i class="fa fa-refresh"></i> Reset</button>
-                        </div>
-                    </div>
-                    <hr>
-                </form>
 
-        <?php
-    }else{
-    
-	?>
-	
-	       <div id="page-wrapper">
+            <?php
 
-            <div class="container-fluid">
+                $row = $db->query("SELECT * FROM manage_aboutus WHERE id = 1");
+                $row1 = $row->fetch(PDO::FETCH_ASSOC);
 
-                <!-- Page Heading -->
+            ?>
+
+            <form method="post" action="update_aboutUs.php" enctype="multipart/form-data">
+                <input type="hidden" name="image_path" value="<?= $row1['image'] ?>" />
                 <div class="row">
-                    <div class="col-lg-12">
-                        <h1 class="page-header"><i class="fa fa-pencil"></i>
-                            Add Institute
-                        </h1>
-                        <ol class="breadcrumb">
-                            <li>
-                                <i class="fa fa-dashboard"></i>  <a href="index.php">Dashboard</a>
-                            </li>
-                            <li>
-                                <i class="fa fa-bank"></i>  <a href="manage_institute.php">Manage Institute</a>
-                            </li>
-                            <li class="active">
-                                <i class="fa fa-pencil"></i> Add Institute
-                            </li>
-                        </ol>
+                    <div class="col-lg-2">
+                        <h4>Name:</h4>
                     </div>
-                </div>
-                <!-- /.row -->
-
-                <div class="well">
-                    Note:- Fields marked with <span style="color:red">*</span> are mandatory.
-                </div>
-            
-                <form action="add_inst.php" method="post" enctype="multipart/form-data" >
-                    <input type="hidden" name="type" value="add" />
-                    <input type="hidden" name="inst_image" value="" />
+                        <div class="col-lg-3">
+                            <input type="text" name="name" class="form-control" value="<?= $row1['name'] ?>" />
+                        </div>
+                    <div class="col-lg-2">
+                        <h4>Address:</h4>
+                    </div>
+                    <div class="col-lg-3">
+                        <textarea type="text" name="address" class="form-control"><?= $row1['address'] ?></textarea>
+                    </div>
+                    </div><br/>
                     <div class="row">
                         <div class="col-lg-2">
-                            Institute Name:<span style="color:red">*</span>
+                            <h4>Contact (M):</h4>
                         </div>
                         <div class="col-lg-3">
-                            <input type="text" name="inst_name" class="form-control" required />
+                            <input type="text" name="mobile" class="form-control" value="<?= $row1['mobile'] ?>" />
                         </div>
                         <div class="col-lg-2">
-                            Upload Image:
+                            <h4>State:</h4>
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="text" name="state" class="form-control" value="<?= $row1['state'] ?>" />
+                        </div>
+                    </div><br/>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <h4>Contact (O):</h4>
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="text" name="office" class="form-control" value="<?= $row1['office'] ?>" />
+                        </div>
+                        <div class="col-lg-2">
+                            <h4>Country:</h4>
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="text" name="country" class="form-control" value="<?= $row1['country'] ?>"  readonly />
+                        </div>
+                    </div><br/>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <h4>E-mail:</h4>
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="text" name="email" class="form-control" value="<?= $row1['email'] ?>" />
+                        </div>
+                        <div class="col-lg-2">
+                            <h4>Time:</h4>
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="text" name="time" class="form-control" value="<?= $row1['time'] ?>" />
+                        </div>
+                    </div><br/>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <h4>Image:</h4>
                         </div>
                         <div class="col-lg-3">
                             <input type="file" name="Uploadfiles" />
@@ -197,26 +168,20 @@
                     </div><br/>
                     <div class="row">
                         <div class="col-lg-2">
-                            Institute Description:<span style="color:red">*</span>
+                            <h4>Description/History:</h4>
                         </div>
                         <div class="col-lg-10">
-                            <textarea type="text" name="inst_desc" class="ckeditor form-control" required></textarea>
+                        <textarea name="description" class="ckeditor" type="text"><?= $row1['descr'] ?></textarea>
                         </div>
-                    </div>
-                    <br/>
+                    </div><hr>
                     <div class="row">
-                        <div align="center" class="col-lg-12">
-                            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
-                            <button type="reset" class="btn btn-danger"><i class="fa fa-refresh"></i> Reset</button>
+                        <div class="col-lg-12" align="center">
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save Details</button>
                         </div>
                     </div>
                     <hr>
-                </form>
-                <?php
-                }            
-            ?>
-
-            </div>
+            </form>
+                </div>
             <!-- /.container-fluid -->
         </div>
         <!-- /#page-wrapper -->

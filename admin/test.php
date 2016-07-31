@@ -9,10 +9,12 @@ echo hash('sha512', $password)."<br/>";
 //$password = md5($password.$salt);
 echo $salt.$pass;
 echo "<br />". $pass;
+$date = "14:01";
+
+$dateUS = DateTime::createFromFormat("h:i", $date)->format("h/i/A");
+echo $dateUS;
 
 ?>
 <script type="text/javascript">
 
-    
 </script>
-<a target="_blank" href="images/agri.jpg" >Click Me</a>

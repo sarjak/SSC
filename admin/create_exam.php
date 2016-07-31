@@ -45,6 +45,22 @@
             });
         });
 
+        $("#marks").change(function(){
+            var ques = $("#ques").val();
+            if(ques != ""){
+                var total = $("#marks").val() * $("#ques").val(); 
+                $("#total").val(total);
+            }
+        });
+
+        $("#ques").change(function(){
+            var ques = $("#marks").val();
+            if(marks != ""){
+                var total = $("#marks").val() * $("#ques").val(); 
+                $("#total").val(total);
+            }
+        });
+
     $("#negative").change(function() {
         //alert("aaa");
         if(this.checked) {
@@ -131,7 +147,7 @@
             <h4>No. of Questions:<span style="color:red">*</span></h4>
         </div>
         <div class="col-md-3">
-            <input type="text" name="questions" class="form-control" required />
+            <input type="text" name="questions" class="form-control" id="ques" required />
         </div>
         <div class="col-sm-2" >
             <h4>Negative Marking:<span style="color:red">*</span></h4>
@@ -147,7 +163,7 @@
             <h4>Marks Per Question:<span style="color:red">*</span></h4>
         </div>
         <div class="col-md-3">
-            <input type="text" name="marks_per_question" class="form-control" required />
+            <input type="text" name="marks_per_question" class="form-control" id="marks" required />
         </div>
         <div class="col-sm-2" >
             <h4>Negative Marks:<span style="color:red">*</span><small> (Per Question) </small> </h4>
@@ -162,7 +178,7 @@
             <h4>Total Marks:<span style="color:red">*</span></h4>
         </div>
         <div class="col-md-3">
-            <input type="text" name="total_marks" class="form-control" required readonly />
+            <input type="text" name="total_marks" class="form-control" id="total" required readonly />
         </div>
         <div class="col-sm-2" >
             <h4>Passing Marks:<span style="color:red">*</span></h4>

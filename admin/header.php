@@ -27,13 +27,7 @@ if($_SESSION['sid'] == session_id()){
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?= $row1['fname'] ." ". $row1['lname'] ?> <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                            <a href="manage_about_us.php"><i class="fa fa-fw fa-user"></i> My Profile</a>
                         </li>
                         <li class="divider"></li>
                         <li>
@@ -156,7 +150,7 @@ if($_SESSION['sid'] == session_id()){
                         <?php
                     }
                     ?>
-
+<!--
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-home"></i> Manage HomePage <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo" class="collapse">
@@ -168,6 +162,24 @@ if($_SESSION['sid'] == session_id()){
                             </li>
                         </ul>
                     </li>
+                    -->
+
+                    <?php
+                    if($id == 10){
+                        ?>
+                        <li class="active">
+                            <a href="manage_workshop.php"><i class="fa fa-fw fa-cog"></i> Manage Workshops / Sessions </a>
+                        </li>   
+                        <?php
+                    }else{
+                        ?>
+                        <li>
+                            <a href="manage_workshop.php"><i class="fa fa-fw fa-cog"></i> Manage Workshops / Sessions </a>
+                        </li>
+                        <?php
+                    }
+                    ?>
+
                     <?php
                     if($id == 8){
                         ?>
@@ -179,6 +191,22 @@ if($_SESSION['sid'] == session_id()){
                         ?>
                         <li>
                             <a href="newsletter.php"><i class="fa fa-fw fa-envelope"></i> Send NewsLetters/Mail </a>
+                        </li>
+                        <?php
+                    }
+                    ?>
+
+                          <?php
+                    if($id == 9){
+                        ?>
+                        <li class="active">
+                            <a href="manage_about_us.php"><i class="fa fa-fw fa-info"></i> Manage About Us </a>
+                        </li>   
+                        <?php
+                    }else{
+                        ?>
+                        <li>
+                            <a href="manage_about_us.php"><i class="fa fa-fw fa-info"></i> Manage About Us </a>
                         </li>
                         <?php
                     }
