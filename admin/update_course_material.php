@@ -35,11 +35,22 @@
 
 <script type="text/javascript">
 $("document").ready(function(){
-    var links = $("#links");
-    $(links).on("click",".remove_field", function(e){
-        e.preventDefault(); $(this).parent('div').parent('div').remove();
-    });
-    
+    $("#form").on("click", ".delo", function(){
+        var id = $(this).attr('id');
+        
+        if(confirm("Are you sure you want to delete?")){
+            alert(id);
+            $.ajax({
+            type: "GET",
+            url: 'delete_code.php',
+            data: "type=material&id="+id,
+            success: function(response) {
+                alert("Course Material Deleted Successfully.");
+                //window.location = 'update_course_material.php?state=success&id='+this.value;
+                }
+            });
+            }
+        });
 });
 </script>
 
@@ -47,14 +58,14 @@ $("document").ready(function(){
 <body>
 	<?php 
     require 'access/dbaccess.php';
+    $db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
 	$id = 3;
     if(isset($_GET['id'])){
         $cid = $_GET['id'];
     }else{
         $cid = NULL;
     }
-    $row = $db->query("SELECT * FROM manage_course_material WHERE course_id = '$cid'  AND notes_category = 'link'");
-
+    
 	include("header.php"); 
 	?>
 	        <div id="page-wrapper">
@@ -88,13 +99,15 @@ $("document").ready(function(){
             <div class="panel-heading">
                 Update Reference Links
             </div>
-            <form method="post" action="add_material.php" style="padding:30px">
+            <form method="post" action="add_material.php" style="padding:30px" id="form">
                 <input type="hidden" name="cid" value="<?= $cid ?>" />
                 <?php
+                $row = $db->query("SELECT * FROM manage_course_material WHERE course_id = '$cid' AND notes_category = 'link' AND flag = 1 ");
                     $cnt=0;
-                    while ($row1 = $row->fetch(PDO::FETCH_ASSOC)) {
+                    while($row1 = $row->fetch(PDO::FETCH_ASSOC)){
                         $cnt++;
                 ?>
+
                 <input type="hidden" name="id<?= $cnt ?>" value="<?= $row1['notes_id'] ?>" />
                 <input type="hidden" name="type" value="update" />
                 <div class="link" id="links">
@@ -105,7 +118,6 @@ $("document").ready(function(){
                         <div class="col-lg-4">
                             <input type="text" class="form-control" name="link<?= $cnt ?>" value="<?= $row1['notes_path'] ?>" required />
                         </div>
-
                         <div class="col-lg-2">
                             <h4>Description:</h4>
                         </div>
@@ -113,7 +125,7 @@ $("document").ready(function(){
                             <textarea type="text" rows="1" class="form-control" name="linkdesc<?= $cnt ?>" required ><?= $row1['notes_description'] ?></textarea>
                         </div>
                         <div class="col-lg-1">
-                            <a href="" class="remove_field" ><i class="fa fa-times"></i></a>
+                            <a href="" class="delo" id="<?= $row1['notes_id'] ?>" ><i class="fa fa-times"></i></a>
                         </div>
                     </div>
                 </div>
@@ -128,7 +140,7 @@ $("document").ready(function(){
             </div>
 
 <?php
-    $row = $db->query("SELECT * FROM manage_course_material WHERE course_id = '$cid' AND notes_category = 'notes'");
+    $rows = $db->query("SELECT * FROM manage_course_material WHERE course_id = '$cid' AND notes_category = 'notes' AND flag = 1     ");
 ?>                        
             <div class="panel panel-primary">
             <div class="panel-heading">
@@ -138,7 +150,7 @@ $("document").ready(function(){
                 <input type="hidden" name="cid" value="<?= $cid ?>" />
                 <?php
                     $cnt=0;
-                    while ($row1 = $row->fetch(PDO::FETCH_ASSOC)) {
+                    while ($row1 = $rows->fetch(PDO::FETCH_ASSOC)) {
                         $cnt++;
                 ?>
                 <input type="hidden" name="id<?= $cnt ?>" value="<?= $row1['notes_id'] ?>" />

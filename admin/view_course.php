@@ -36,6 +36,7 @@
 <body>
 	<?php 
     require 'access/dbaccess.php';
+    
 	$id = 3;
     if(isset($_GET['courseid'])){
         $cid = $_GET['courseid'];
@@ -316,7 +317,7 @@ if($exam1){
 ?>
 </div>
 <?php
-    $link = $db->query("SELECT * FROM manage_course_material WHERE course_id = '$row1[course_id]' AND notes_category = 'link'");
+    $link = $db->query("SELECT * FROM manage_course_material WHERE course_id = '$row1[course_id]' AND notes_category = 'link' AND flag = 1");
 ?>
 
     <h3 ><b>Study Material</b></h3><hr>
@@ -344,7 +345,7 @@ if($exam1){
             </div>
         </div><hr>
 <?php
-    $link = $db->query("SELECT * FROM manage_course_material WHERE course_id = '$row1[course_id]' and notes_category = 'notes'");
+    $link = $db->query("SELECT * FROM manage_course_material WHERE course_id = '$row1[course_id]' and notes_category = 'notes' AND flag = 1");
 ?>
 
                 <div class="panel panel-primary">

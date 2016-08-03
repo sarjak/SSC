@@ -1,8 +1,6 @@
 <?php
 require 'access/dbaccess.php';
 
-$db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
-
 if(isset($_POST['name'])){
 	$name = $_POST['name'];
 }else{
