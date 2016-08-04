@@ -56,6 +56,8 @@ die("");
 	$row = $db->query("UPDATE manage_course_material SET flag = 0 WHERE id = '$id'");
 }elseif ($type == "terms") {
 	$row = $db->query("UPDATE manage_terms SET flag = 0 WHERE id = '$id'");
+}elseif ($type == "faq") {
+	$row = $db->query("UPDATE manage_faqs SET flag = 0 WHERE id = '$id'");
 }
 
 

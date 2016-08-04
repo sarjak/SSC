@@ -33,7 +33,7 @@ if($_SESSION['sid'] == session_id()){
                             <a href="manage_t&c.php"><i class="fa fa-fw fa-check"></i> Manage T&amp;C.</a>
                         </li>
                         <li>
-                            <a href="manage_about_us.php"><i class="fa fa-fw fa-question"></i> Manage FAQs</a>
+                            <a href="manage_faq.php"><i class="fa fa-fw fa-question"></i> Manage FAQs</a>
                         </li>
                         <li class="divider"></li>
                         <li>
