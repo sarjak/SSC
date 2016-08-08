@@ -58,6 +58,8 @@ die("");
 	$row = $db->query("UPDATE manage_terms SET flag = 0 WHERE id = '$id'");
 }elseif ($type == "faq") {
 	$row = $db->query("UPDATE manage_faqs SET flag = 0 WHERE id = '$id'");
+}elseif ($type == "news") {
+	$row = $db->query("UPDATE manage_news_feed SET flag = 0 WHERE id = '$id'");
 }
 
 

@@ -11,11 +11,25 @@ echo $salt.$pass;
 echo "<br />". $pass;
 $date = "14:01";
 
-$dateUS = DateTime::createFromFormat("h:i", $date)->format("h/i/A");
+//$dateUS = DateTime::createFromFormat("h:i", $date)->format("h/i/A");
 echo $dateUS;
 
 ?>
 <script type="text/javascript">
-
+//$db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
 </script>
-$db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<table>
+	<tr>
+		<td><input type="radio" name="gender"></td>
+		<td>Hello World</td>
+	</tr>
+</table>
+</body>
+</html>
