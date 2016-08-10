@@ -5,6 +5,11 @@ $user = $_SESSION['username'];
 if($_SESSION['sid'] == session_id()){
     $row = $db->query("SELECT * FROM administrator WHERE username = '$user' ");
     $row1 = $row->fetch(PDO::FETCH_ASSOC);
+
+$nRows = $db->query('select count(*) from manage_notification WHERE seen = 0')->fetchColumn(); 
+//echo $nRows;
+    $notification = $db->query("SELECT * FROM manage_notification WHERE seen = 0 ");
+    
 }
 ?>
     <div id="wrapper">
@@ -24,53 +29,79 @@ if($_SESSION['sid'] == session_id()){
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> Messages <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> Messages <span class="badge"><?= $nRows ?></span><b class="caret"></b></a>
                     <ul class="dropdown-menu message-dropdown">
+                    <?php
+                        while($notify = $notification->fetch(PDO::FETCH_ASSOC)){
+                            if($notify['type'] == "Registration"){
+                                $stdnt = $db->query("SELECT * FROM manage_students WHERE username = '$notify[fk]'");
+                                $std = $stdnt->fetch(PDO::FETCH_ASSOC);
+                        
+                    ?>
                         <li class="message-preview">
                             <a href="#">
                                 <div class="media">
                                     <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                        <i class="fa fa-user"></i>
                                     </span>
                                     <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
+                                        <h5 class="media-heading"><strong>New Registration</strong>
                                         </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> <?= date_format(date_create($std['reg_date']),"D d-M-Y h:i A") ?></p>
+                                        <b>Name:</b> <?= $std['fname'] ." ". $std['lname'] ?>
                                     </div>
                                 </div>
                             </a>
                         </li>
+                        <?php
+                                }elseif($notify['type'] == "Enrol"){
+                                    $stdnt = $db->query("SELECT * FROM manage_students WHERE username = '$notify[fk]'");
+                                    $std = $stdnt->fetch(PDO::FETCH_ASSOC);
+
+                                    $enrol = $db->query("SELECT * FROM manage_enrol  as enrol NATURAL JOIN manage_courses as course WHERE enrol.course_id = course.course_id AND username = '$notify[fk]' ");
+                                    $enrol1 = $enrol->fetch(PDO::FETCH_ASSOC);
+
+                                    //$course = $db->query("");
+                                ?>
                         <li class="message-preview">
                             <a href="#">
                                 <div class="media">
                                     <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                        <i class="fa fa-pencil"></i>
                                     </span>
                                     <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
+                                        <h5 class="media-heading"><strong>Course Enrolment</strong>
                                         </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> <?= date_format(date_create($std['reg_date']),"D d-M-Y h:i A") ?></p>
+                                        <b>Name:</b> <?= $std['fname'] ." ". $std['lname'] ?><br/>
+                                        <b>Course:</b> <?= $enrol1['course_name'] ?>
                                     </div>
                                 </div>
                             </a>
                         </li>
+                        <?php
+                                }elseif ($type == "Pass") {
+                                    ?>
                         <li class="message-preview">
                             <a href="#">
                                 <div class="media">
                                     <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
+                                        <i class="fa fa-pencil"></i>
                                     </span>
                                     <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
+                                        <h5 class="media-heading"><strong>Course Cleared</strong>
                                         </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> <?= date_format(date_create($std['reg_date']),"D d-M-Y h:i A") ?></p>
+                                        <b>Name:</b> <?= $std['fname'] ." ". $std['lname'] ?><br/>
+                                        <b>Course:</b> <?= $enrol1['course_name'] ?>
                                     </div>
                                 </div>
                             </a>
                         </li>
+                        <?php
+                                }
+                            }
+                        ?>
                         <li class="message-footer">
                             <a href="#">Read All New Messages</a>
                         </li>
@@ -266,6 +297,22 @@ if($_SESSION['sid'] == session_id()){
                         ?>
                         <li>
                             <a href="manage_news_feed.php"><i class="fa fa-fw fa-list-alt"></i> Manage News Feed </a>
+                        </li>
+                        <?php
+                    }
+                    ?>
+
+                    <?php
+                    if($id == 14){
+                        ?>
+                        <li class="active">
+                            <a href="manage_career.php"><i class="fa fa-fw fa-bookmark"></i> Update Career Advice </a>
+                        </li>   
+                        <?php
+                    }else{
+                        ?>
+                        <li>
+                            <a href="manage_career.php"><i class="fa fa-fw fa-bookmark"></i> Update Career Advice </a>
                         </li>
                         <?php
                     }

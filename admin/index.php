@@ -130,7 +130,7 @@
             ?>
                 <tr>
                 <th>
-                    <?php echo $cnt++ ?>
+                   <?= $cnt++ ?>  
                 </th>
                 <td>
                    <?= $stdnt['fname'] ?> 

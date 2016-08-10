@@ -8,9 +8,9 @@ $host = "localhost"; //database location
 
 // PayPal settings
 $paypal_email = 'abc@xyz.co.in';
-$return_url = 'http://5d072b39.ngrok.io/ssc/admin/payment-successful.html';
-$cancel_url = 'http://5d072b39.ngrok.io/ssc/admin/payment-cancelled.html';
-$notify_url = 'http://5d072b39.ngrok.io/ssc/admin/payments.php';
+$return_url = 'http://b04eb5fa.ngrok.io/ssc/admin/test.php';
+$cancel_url = 'http://b04eb5fa.ngrok.io/ssc/admin/payment-cancelled.html';
+$notify_url = 'http://b04eb5fa.ngrok.io/ssc/admin/payments.php';
 
 $item_name = 'Test Item';
 $item_amount = 5.00;

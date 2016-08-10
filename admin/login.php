@@ -66,8 +66,8 @@
             </table>
             <br/><br/>
             <div align="center" width="100%">
-                <button style="height:40px;width:120px" type="submit" class="btn btn-primary" ><span style="font-size:20px"><i class="fa fa-sign-in">  Log In </i></span></button>
-                <button style="height:40px;width:120px" type="reset" class="btn btn-danger" ><span style="font-size:20px"><i class="fa fa-sign-in">  Reset </i></span></button>
+                <button style="height:40px;width:120px" type="submit" class="btn btn-primary" ><span style="font-size:16px"><i class="fa fa-sign-in">  Log In </i></span></button>
+                <button style="height:40px;width:120px" type="reset" class="btn btn-danger" ><span style="font-size:16px"><i class="fa fa-sign-in">  Reset </i></span></button>
             </div>
         </form>
         </div>
