@@ -43,7 +43,7 @@ $mail->SMTPSecure = "tls";                 // sets the prefix to the servier
 $mail->Host       = "smtp.gmail.com";      // sets GMAIL as the SMTP server
 $mail->Port       = 587;                   // set the SMTP port for the GMAIL server
 $mail->Username   = "gandhi.sarjak42@gmail.com";  // GMAIL username
-$mail->Password   = "99251317766";            // GMAIL password
+$mail->Password   = "password";            // GMAIL password
 
 $mail->SetFrom('sscorporation@gmail.com', 'Satish Shah');
 
