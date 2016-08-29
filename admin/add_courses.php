@@ -34,6 +34,12 @@ if(isset($_POST['description'])){
 	//die($course_desc."cccccd");
 }
 
+if(isset($_POST['short_desc'])){
+    $short_desc = $_POST['short_desc'];
+}else{
+    $short_desc = NULL;
+}
+
 if(isset($_POST['category'])){
 	$course_cat_id = $_POST['category'];
 }else{
@@ -98,7 +104,7 @@ if(! empty($_FILES['Uploadfiles']['name'])){
 
 if($type == "add"){
 
-    $result = $db->query("INSERT INTO manage_courses (course_name, course_desc, course_cat_id, course_duration, course_fees, re_exam_fees, image, status, institute_id, flag ) VALUES ('$course_name', '$course_desc', '$course_cat_id' , '$course_duration', '$course_fees', '$course_re_exam', '$path', 'Active', $inst_id, 1 )");
+    $result = $db->query("INSERT INTO manage_courses (course_name, course_desc, course_short_desc, course_cat_id, course_duration, course_fees, re_exam_fees, image, status, institute_id, flag ) VALUES ('$course_name', '$course_desc','$short_desc', '$course_cat_id' , '$course_duration', '$course_fees', '$course_re_exam', '$path', 'Active', $inst_id, 1 )");
     if(!$result){
 
             ?>
@@ -116,7 +122,7 @@ if($type == "add"){
 
 }else if($type == "update"){
 
-    $result = $db->query("UPDATE manage_courses SET course_name = '$course_name', course_desc = '$course_desc', course_cat_id = '$course_cat_id', course_duration = '$course_duration' , course_fees = '$course_fees', re_exam_fees = '$course_re_exam', image = '$path', status = 'Active', institute_id = '$inst_id' WHERE course_id = '$cid'");
+    $result = $db->query("UPDATE manage_courses SET course_name = '$course_name', course_desc = '$course_desc', course_cat_id = '$course_cat_id', course_duration = '$course_duration' , course_fees = '$course_fees', re_exam_fees = '$course_re_exam', image = '$path', status = 'Active', institute_id = '$inst_id', course_short_desc = '$short_desc' WHERE course_id = '$cid'");
     
     if(!$result){
         ?>

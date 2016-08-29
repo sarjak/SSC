@@ -101,7 +101,7 @@
         </div><br/>
 
         <div class="row">
-        <table width="100%">
+        <table width="95%" align="center">
             <tbody>
                 <tr align="center">
                     <td>
@@ -173,6 +173,12 @@
                             }
                         ?>
                         </select>
+                    </td>
+                    <td>
+                        <h4>Short Description:<span style="color:red">*</span></h4>
+                    </td>
+                    <td>
+                        <textarea type="text" name="short_desc" class="form-control"></textarea>
                     </td>
                     
                 </tr>

@@ -24,7 +24,7 @@ $nRows = $db->query('select count(*) from manage_notification WHERE seen = 0')->
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html"> Admin Panel </a>
+                <a class="navbar-brand" href="index.php"> Admin Panel </a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
@@ -39,8 +39,8 @@ $nRows = $db->query('select count(*) from manage_notification WHERE seen = 0')->
                         
                     ?>
                         <li class="message-preview">
-                            <a href="#">
-                                <div class="media">
+                            <a href="view_student.php?notify=<?= $notify['id'] ?>&amp;stdnt=<?= $std['username'] ?>" >
+                                <div style="color:blue" class="media">
                                     <span class="pull-left">
                                         <i class="fa fa-user"></i>
                                     </span>
@@ -64,10 +64,10 @@ $nRows = $db->query('select count(*) from manage_notification WHERE seen = 0')->
                                     //$course = $db->query("");
                                 ?>
                         <li class="message-preview">
-                            <a href="#">
-                                <div class="media">
+                            <a href="index.php?id=<?= $notify['id'] ?>&amp;username=<?= $notify['fk'] ?>">
+                                <div style="color:darkorange" class="media">
                                     <span class="pull-left">
-                                        <i class="fa fa-pencil"></i>
+                                        <i class="fa fa-table"></i>
                                     </span>
                                     <div class="media-body">
                                         <h5 class="media-heading"><strong>Course Enrolment</strong>
@@ -80,20 +80,25 @@ $nRows = $db->query('select count(*) from manage_notification WHERE seen = 0')->
                             </a>
                         </li>
                         <?php
-                                }elseif ($type == "Pass") {
+                                }elseif ($notify['type'] == "Pass") {
+                                    $result = $db->query("SELECT * FROM manage_result NATURAL JOIN manage_courses WHERE exam_id = course_id AND id = $notify[fk]");
+                                    $res = $result->fetch(PDO::FETCH_ASSOC);
+
+                                    $stdnt = $db->query("SELECT * FROM manage_students WHERE username = '$res[username]'");
+                                    $std = $stdnt->fetch(PDO::FETCH_ASSOC);
                                     ?>
                         <li class="message-preview">
                             <a href="#">
-                                <div class="media">
+                                <div style="color:green" class="media">
                                     <span class="pull-left">
-                                        <i class="fa fa-pencil"></i>
+                                        <i class="fa fa-trophy"></i>
                                     </span>
                                     <div class="media-body">
-                                        <h5 class="media-heading"><strong>Course Cleared</strong>
+                                        <h5 class="media-heading"><strong>Course Cleared </strong>
                                         </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> <?= date_format(date_create($std['reg_date']),"D d-M-Y h:i A") ?></p>
+                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> <?= date_format(date_create($res['date']),"D d-M-Y h:i A") ?></p>
                                         <b>Name:</b> <?= $std['fname'] ." ". $std['lname'] ?><br/>
-                                        <b>Course:</b> <?= $enrol1['course_name'] ?>
+                                        <b>Course:</b> <?= $res['course_name'] ?>
                                     </div>
                                 </div>
                             </a>
@@ -118,6 +123,9 @@ $nRows = $db->query('select count(*) from manage_notification WHERE seen = 0')->
                         </li>
                         <li>
                             <a href="manage_faq.php"><i class="fa fa-fw fa-question"></i> Manage FAQs</a>
+                        </li>
+                        <li>
+                            <a href="manage_career.php"><i class="fa fa-fw fa-bookmark"></i> Career Advice</a>
                         </li>
                         <li class="divider"></li>
                         <li>
@@ -297,22 +305,6 @@ $nRows = $db->query('select count(*) from manage_notification WHERE seen = 0')->
                         ?>
                         <li>
                             <a href="manage_news_feed.php"><i class="fa fa-fw fa-list-alt"></i> Manage News Feed </a>
-                        </li>
-                        <?php
-                    }
-                    ?>
-
-                    <?php
-                    if($id == 14){
-                        ?>
-                        <li class="active">
-                            <a href="manage_career.php"><i class="fa fa-fw fa-bookmark"></i> Update Career Advice </a>
-                        </li>   
-                        <?php
-                    }else{
-                        ?>
-                        <li>
-                            <a href="manage_career.php"><i class="fa fa-fw fa-bookmark"></i> Update Career Advice </a>
                         </li>
                         <?php
                     }

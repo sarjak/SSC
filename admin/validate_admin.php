@@ -13,14 +13,20 @@ if($row1){
 		$_SESSION['sid']=session_id();
 		$_SESSION['username'] = $user;
 		$_SESSION['loggedin_time'] = time();
+		if(isset($_SESSION['url'])){
 		?>
 		<script>
-			
-			
+			window.location = '<?= $_SESSION['url'] ?>';
+		</script>
+		<?php	
+		}else{
+		?>
+		<script>
         	//$_SESSION['loggedin_time'] = time();  
 			window.location = 'index.php';
 		</script>
 		<?php
+		}
 	}else{
 		?>
 		<script>

@@ -60,6 +60,10 @@
 	$id = 2;
 	include("header.php"); 
 	
+    if(isset($_GET['notify'])){
+        $row2 = $db->query("UPDATE manage_notification SET seen = 1 WHERE id = '$_GET[notify]' ");
+    }
+
     $data = $db->query("SELECT * FROM manage_students WHERE username = '$username' ");
     $row = $data->fetch(PDO::FETCH_ASSOC);
 	?>
@@ -221,8 +225,43 @@
 
         <hr>
         <h3> <i class="fa fa-table"></i> Courses Enroled</h3>
-        <hr>
+        
+        <?php
+        $course = $db->query("SELECT * FROM manage_enrol WHERE username = '$row[username]' ");
 
+        ?>
+        
+        <table width="70%" class="table table-stripped">
+            <tr>
+                <th>#</th>
+                <th>Course Name</th>
+                <th>Status</th>
+                <th>Enrolment Date</th>
+                <th>Marks Obtained</th>
+                <th>Total Marks</th>
+            </tr>
+            
+        <?php
+        $cnt = 1;
+            while ($courses = $course->fetch(PDO::FETCH_ASSOC)) {
+                $std = $db->query("SELECT * FROM manage_courses WHERE course_id = '$courses[course_id]' ");
+                $exam = $db->query("SELECT * FROM manage_exam WHERE exam_id = '$courses[course_id]' ");
+                $result = $db->query("SELECT * FROM manage_result WHERE username = '$row[username]' AND exam_id = '$courses[course_id]' ");
+                $result1 = $result->fetch(PDO::FETCH_ASSOC);
+                $exams = $exam->fetch(PDO::FETCH_ASSOC);
+                $stdn = $std->fetch(PDO::FETCH_ASSOC);
+                echo "<tr><th>" . $cnt++ . "</th>";
+                echo "<td>$stdn[course_name]</td>";
+                echo "<td>$courses[status]</td>";
+                echo "<td>$courses[date]</td>";
+                echo "<td>".$result1['marks_obt']."</td>";
+                echo "<td>".$exams['no_of_ques'] * $exams['marks_per_ques']."</td></tr>";
+                
+            }
+        ?>        
+            
+        </table>
+        
         <br/>
         <div class="row">
         <div class="col-lg-12" align="center">

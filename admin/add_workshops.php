@@ -1,5 +1,6 @@
 <?php
 require 'access/dbaccess.php';
+include('ChromePhp.php');
 
 if(isset($_POST['name'])){
 	$name = $_POST['name'];
@@ -43,6 +44,12 @@ if(isset($_POST['price'])){
 	$price = NULL;
 }
 
+if(isset($_POST['active'])){
+	$active = $_POST['active'];
+}else{
+	$active = NULL;
+}
+
 if(isset($_POST['type'])){
 	$type = $_POST['type'];
 }else{
@@ -56,7 +63,7 @@ if(isset($_POST['id'])){
 }
 
 if($type == "add"){
-	$row = $db->query("INSERT INTO manage_workshops (name, description, time, duration, date, venue, price, active, flag) VALUES ('$name','$description','$time','$duration','$date','$venue','$price','Active','1') ");
+	$row = $db->query("INSERT INTO manage_workshops (name, description, time, duration, date, venue, price, active, flag) VALUES ('$name','$description','$time','$duration','$date','$venue','$price','$active','1') ");
 	if(!$row){
 		?>
 		<script>
@@ -71,7 +78,7 @@ if($type == "add"){
 		<?php
 	}
 }elseif ($type == "update"){
-	$row = $db->query("UPDATE manage_workshops SET name = '$name', description = '$description', time = '$time', duration = '$duration', date = '$date', venue = '$venue', price = '$price' WHERE id = '$id' ");
+	$row = $db->query("UPDATE manage_workshops SET name = '$name', description = '$description', time = '$time', duration = '$duration', date = '$date', venue = '$venue', price = '$price', active = '$active' WHERE id = '$id' ");
 	if(!$row){
 		?>
 		<script>

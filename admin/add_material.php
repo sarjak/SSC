@@ -30,11 +30,11 @@ if($type == "add"){
 			if(!$row){
 				die("Problem inserting data into Database.");
 			}else{
-				echo "<br/>Done with ". $_POST['link'.$i]; 
+				//echo "<br/>Done with ". $_POST['link'.$i]; 
 			}
 
 		}else{
-			echo "<br/>No data for" . $i;
+			//echo "<br/>No data for" . $i;
 		}
 	}
 	}else if($mat_type == "notes"){

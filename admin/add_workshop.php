@@ -160,6 +160,25 @@
                             <input type="text" name="price" class="form-control" required value="<?= $row1['price'] ?>"/>
                             <h4><small>If Workshop is Free, enter 0 (Zero)</small></h4>
                         </div>
+                        <div class="col-sm-2">
+                            <h4>Status:<span style="color:red">*</span></h4>
+                        </div>
+                        <div style="padding-top:9px" class="col-sm-3">
+                        <?php
+                        if($row1['active'] == "Active"){
+                            ?>
+                            <input type="radio" name="active" value="Active" checked="true" required /> Active
+                            <input type="radio" name="active" value="InActive" required /> InActive
+                            <?php
+                        }else{
+                            ?>
+                            <input type="radio" name="active" value="Active" required /> Active
+                            <input type="radio" name="active" value="InActive" checked="true" required /> InActive
+                            <?php
+                        }
+                        ?>
+                            
+                        </div>
                     </div><hr>
                     <div class="row">
                       <div align="center">

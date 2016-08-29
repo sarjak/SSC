@@ -37,8 +37,32 @@
 <body>
 	<?php 
     require 'access/dbaccess.php';
+    $db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
 	$id = 14;
 	include("header.php"); 
+
+  if(isset($_POST['advice'])){
+    $advice = $_POST['advice'];
+    $date = date('Y-m-d H:i:s');
+    $row = $db->query("UPDATE manage_career SET advice = '$advice', date = '$date' WHERE id = 1");
+    if(! $row){
+      ?>
+      <script>
+        window.location = 'manage_career.php?status=failure';
+      </script>
+      <?php
+    }else{
+      ?>
+      <script>
+        window.location = 'manage_career.php?status=success';
+      </script>
+      <?php
+    }
+  }
+
+  $adv = $db->query("SELECT * FROM manage_career WHERE id = 1");
+  $advice = $adv->fetch(PDO::FETCH_ASSOC);
+
 	?>
 	        <div id="page-wrapper">
 
@@ -68,7 +92,7 @@
                     <div class="col-lg-12">
                         <div class="alert alert-success alert-dismissable">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            Good..! The News was deleted Successfully.
+                            Great..! The Career Advice was Updated Successfully.
                         </div>
                     </div>
                 </div>
@@ -88,7 +112,12 @@
             
             ?>
         <form method="post" action="manage_career.php">
-            <textarea name="advice" class="ckeditor"></textarea>
+            <h4>Last Modified On: <small> <?= date_format(date_create($advice['date']),"D, d - M - Y") ?></small></h4>
+            <textarea name="advice" class="ckeditor"><?= $advice['advice'] ?></textarea>
+            <br/>
+            <div align="center">
+              <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
+            </div>
         </form>
   
     <hr>

@@ -11,6 +11,7 @@ function isLoginSessionExpired() {
 	return false;
 }
 $url = $_SERVER['REQUEST_URI'];
+$_SESSION['url'] = $_SERVER['REQUEST_URI'];
 if(!isset($_SESSION['username']) || (isLoginSessionExpired()))
 {
 ?>

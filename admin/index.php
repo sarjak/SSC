@@ -59,12 +59,12 @@
                 <!-- Page Heading -->
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">
+                        <h1 class="page-header"><i class="fa fa-dashboard"></i>
                             Dashboard <small>Statistics Overview</small>
                         </h1>
                         <ol class="breadcrumb">
                             <li class="active">
-                                <i class="fa fa-dashboard"></i> Student Enrolment
+                                <i class="fa fa-dashboard"></i> Home Page
                             </li>
                         </ol>
                     </div>
@@ -99,7 +99,7 @@
                 <!-- /.row -->
     <div class="row">
         <div align="center">
-            <button class="btn btn-primary" onClick="window.location='add_faq.php'"><i class="fa fa-user"></i> Enrol Students</button>
+            <button class="btn btn-primary" onClick="window.location='enrol_students.php'"><i class="fa fa-user"></i> Enrol Students</button>
             <button class="btn btn-warning" onClick="window.print()"><i class="fa fa-print"></i> Print Data</button>
         </div>
     </div>
@@ -119,8 +119,13 @@
       <tbody>
       <?php
       $cnt = 1;
-      $row = $db->query("SELECT * FROM manage_enrol WHERE flag = 1");
-
+      if(isset($_GET['username'])){
+        $user = $_GET['username'];
+        $row = $db->query("SELECT * FROM manage_enrol WHERE flag = 1 AND username = '$user' ");
+      }else{
+        $row = $db->query("SELECT * FROM manage_enrol WHERE flag = 1");  
+      }
+      
         while($row1 = $row->fetch(PDO::FETCH_ASSOC)){
             $courses = $db->query("SELECT * FROM manage_courses WHERE course_id = '$row1[course_id]'");
             $course = $courses->fetch(PDO::FETCH_ASSOC);
